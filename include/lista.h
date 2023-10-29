@@ -1,10 +1,11 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef LISTA_H
+#define LISTA_H
+
+#include "aux.h"
 
 typedef struct lista {
 
-   struct lista* ant;
+   // struct lista* ant;
    struct lista* prox;
    int elem;
 
@@ -13,12 +14,18 @@ typedef struct lista {
 
 lista_t* inicializa(void);
 
-void imprimir(lista_t* inicio);
+void imprimeLista(lista_t* inicio);
 
 bool eh_vazia(lista_t* inicio);
 
-bool inserir(lista_t** inicio, int elem);
+bool insereInicio(lista_t** inicio, int elem);
 
-bool removerNodo(lista_t** inicio, lista_t* nodo);
+bool insereOrdenado(lista_t** inicio, int elem);
+
+// bool removerNodo(lista_t** inicio, lista_t* nodo);
+
+bool removeInicio(lista_t** inicio);
 
 bool buscar(lista_t* inicio, lista_t** nodo, int elem);
+
+#endif

@@ -1,12 +1,8 @@
 // Arquivo de headers
-
 #ifndef LIB_LISTA_H
 #define LIB_LISTA_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
+#include "aux.h"
 
 typedef struct lista {
     int conteudo;
@@ -17,7 +13,7 @@ typedef struct lista {
 
 conjunto_t* inicializa (void); 
 
-void imprimeLista(conjunto_t* l1, bool cont);
+void imprimeConjunto(conjunto_t* l1, bool cont);
 
 bool insereInicio(conjunto_t** inicio, int conteudo);
 
