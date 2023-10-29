@@ -9,12 +9,12 @@ Por Eduarda Saibert =D
 */
 
 // Retorna uma lista vazia
-lista_t* inicializa (void) {
+conjunto_t* inicializa (void) {
     return NULL;
 }
 
-void imprimeLista(lista_t* l1, bool cont){
-    lista_t* aux; 
+void imprimeLista(conjunto_t* l1, bool cont){
+    conjunto_t* aux; 
     for (aux = l1; aux != NULL; aux = aux->prox){
         printf("%d ", aux->conteudo);
 
@@ -26,9 +26,9 @@ void imprimeLista(lista_t* l1, bool cont){
 }
 
 // Preferi inserir no início pois não alteraria o exercício
-bool insereInicio(lista_t** inicio, int conteudo){
-    lista_t* novo;
-    novo = (lista_t*) malloc(sizeof(lista_t));
+bool insereInicio(conjunto_t** inicio, int conteudo){
+    conjunto_t* novo;
+    novo = (conjunto_t*) malloc(sizeof(conjunto_t));
 
     // Verifica se o malloc foi bem sucedido
     if (novo != NULL){
@@ -43,7 +43,7 @@ bool insereInicio(lista_t** inicio, int conteudo){
 }
 
 // Faz a concatenação das listas l1 e l2
-bool uniao(lista_t* l1, lista_t* l2, lista_t** l3){
+bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3){
     // Vincula o endereço de l3 à l1
     *l3 = l1;
 
@@ -52,7 +52,7 @@ bool uniao(lista_t* l1, lista_t* l2, lista_t** l3){
     }
     
     // aux recebe o endereço de l1
-    lista_t* aux = l1;
+    conjunto_t* aux = l1;
     while (aux->prox != NULL) {
         aux = aux->prox;
     }
@@ -63,8 +63,8 @@ bool uniao(lista_t* l1, lista_t* l2, lista_t** l3){
 }
 
 // Verifica se determinado conteúdo pertence a l
-bool existe(lista_t* l, int conteudo){
-    lista_t* aux;
+bool existe(conjunto_t* l, int conteudo){
+    conjunto_t* aux;
 
     for (aux = l; aux != NULL; aux = aux->prox){
         if (aux->conteudo == conteudo)
@@ -75,8 +75,8 @@ bool existe(lista_t* l, int conteudo){
 }
 
 // Faz a intersecção das listas l1 e l2
-bool interseccao(lista_t* l1, lista_t* l2, lista_t** l3){
-    lista_t* aux = l1;
+bool interseccao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3){
+    conjunto_t* aux = l1;
 
     if (l1 == NULL || l2 == NULL)
         return false;
@@ -93,8 +93,8 @@ bool interseccao(lista_t* l1, lista_t* l2, lista_t** l3){
 }
 
 // Retorna o tamanho de l
-int tamanhoLista(lista_t* l) {
-    lista_t* aux = l;
+int tamanhoLista(conjunto_t* l) {
+    conjunto_t* aux = l;
     int cont = 0;
 
     for (aux = l; aux != NULL; aux = aux->prox)
@@ -103,8 +103,8 @@ int tamanhoLista(lista_t* l) {
     return cont;
 }
 
-bool contem(lista_t* l1, lista_t* l2){
-    lista_t* aux = l1;
+bool contem(conjunto_t* l1, conjunto_t* l2){
+    conjunto_t* aux = l1;
 
     if (l1 == NULL || l2 == NULL)
         return false;
@@ -119,7 +119,7 @@ bool contem(lista_t* l1, lista_t* l2){
     
 }
 
-bool igual(lista_t* l1, lista_t* l2){
+bool igual(conjunto_t* l1, conjunto_t* l2){
     // Verifica se os tamanhos das listas são iguais
     if (contem(l1, l2) && (tamanhoLista(l1) == tamanhoLista(l2)))
         return true;
@@ -128,8 +128,8 @@ bool igual(lista_t* l1, lista_t* l2){
 }
 
 // Retorna em l2 as duplicatas de l1, com a quantidade de vezes que cada aparece
-bool duplicados(lista_t* l1, lista_t** l2){
-    lista_t* aux, *temp;
+bool duplicados(conjunto_t* l1, conjunto_t** l2){
+    conjunto_t* aux, *temp;
     int cont;
 
     if (l1 == NULL)

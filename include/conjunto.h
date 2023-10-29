@@ -12,25 +12,25 @@ typedef struct lista {
     int conteudo;
     int cont; // Para o caso das duplicatas
     struct lista* prox;
-} lista_t;
+} conjunto_t;
 
 
-lista_t* inicializa (void); 
+conjunto_t* inicializa (void); 
 
-void imprimeLista(lista_t* l1, bool cont);
+void imprimeLista(conjunto_t* l1, bool cont);
 
-bool insereInicio(lista_t** inicio, int conteudo);
+bool insereInicio(conjunto_t** inicio, int conteudo);
 
-bool uniao(lista_t* l1, lista_t* l2, lista_t** l3);
+bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3);
 
-bool existe(lista_t* l, int conteudo);
+bool existe(conjunto_t* l, int conteudo);
 
-bool interseccao(lista_t* l1, lista_t* l2, lista_t** l3);
+bool interseccao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3);
 
-bool contem(lista_t* l1, lista_t* l2);
+bool contem(conjunto_t* l1, conjunto_t* l2);
 
-bool igual(lista_t* l1, lista_t* l2);
+bool igual(conjunto_t* l1, conjunto_t* l2);
 
-bool duplicados(lista_t* l1, lista_t** l2);
+bool duplicados(conjunto_t* l1, conjunto_t** l2);
 
 #endif
