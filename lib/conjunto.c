@@ -156,3 +156,18 @@ bool duplicados(conjunto_t* l1, conjunto_t** l2){
     return true;
 }
 
+bool freeConjunto(conjunto_t** l){
+    conjunto_t* aux = *l;
+
+    if (l == NULL)
+        return false;
+
+    while (aux != NULL){
+        *l = aux->prox;
+        free(aux);
+        aux = *l;
+    }
+
+    return true;
+}
+

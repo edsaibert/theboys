@@ -129,6 +129,20 @@ bool buscar(lista_t* inicio, lista_t** nodo, int elem){
 	return false;
 }
 
+bool freeLista(lista_t** inicio){
+	lista_t* aux;
+
+	if (*inicio == NULL)
+		return false;
+
+	while (*inicio != NULL) {
+		aux = *inicio;
+		*inicio = (*inicio)->prox;
+		free(aux);
+	}
+
+	return true;
+}
 
 
 

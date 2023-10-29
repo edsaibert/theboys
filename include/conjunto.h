@@ -29,4 +29,6 @@ bool igual(conjunto_t* l1, conjunto_t* l2);
 
 bool duplicados(conjunto_t* l1, conjunto_t** l2);
 
+bool freeConjunto(conjunto_t** inicio);
+
 #endif

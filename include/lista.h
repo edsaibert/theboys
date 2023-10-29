@@ -28,4 +28,6 @@ bool removeInicio(lista_t** inicio);
 
 bool buscar(lista_t* inicio, lista_t** nodo, int elem);
 
+bool freeFila(lista_t** inicio);
+
 #endif
