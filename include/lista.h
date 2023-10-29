@@ -12,7 +12,7 @@ typedef struct lista {
 } lista_t;
 
 
-lista_t* inicializa(void);
+lista_t* inicializaLista(void);
 
 void imprimeLista(lista_t* inicio);
 

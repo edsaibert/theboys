@@ -9,7 +9,7 @@ Por Eduarda Saibert =D
 */
 
 // Retorna uma lista vazia
-conjunto_t* inicializa (void) {
+conjunto_t* inicializaConjunto (void) {
     return NULL;
 }
 
@@ -26,7 +26,7 @@ void imprimeConjunto(conjunto_t* l1, bool cont){
 }
 
 // Preferi inserir no início pois não alteraria o exercício
-bool insereInicio(conjunto_t** inicio, int conteudo){
+bool insereConjunto(conjunto_t** inicio, int conteudo){
     conjunto_t* novo;
     novo = (conjunto_t*) malloc(sizeof(conjunto_t));
 
@@ -86,7 +86,7 @@ bool interseccao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3){
         if (existe(l2, aux->conteudo)) 
         // Verifica se esse conteúdo já pertence à l3, para evitar duplicatas
             if (!existe(*l3, aux->conteudo))
-                insereInicio(l3, (aux->conteudo));
+                insereConjunto(l3, (aux->conteudo));
     }    
 
     return true;
@@ -147,7 +147,7 @@ bool duplicados(conjunto_t* l1, conjunto_t** l2){
 
             if (cont > 1)
             {
-                insereInicio(l2, aux->conteudo);
+                insereConjunto(l2, aux->conteudo);
                 (*l2)->cont = cont;
             }
         }

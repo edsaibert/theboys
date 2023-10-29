@@ -1,21 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef STRUCTS_H
+#define STRUCTS_H
+
 #include "fila.h"
-
-
-typedef struct lef {
-	int tempo;
-	struct lef *prox;
-} lef_t;
-
-
-// incluir bib separada para conjuntos
-typedef struct conjuntos {
-    int conteudo;
-    int cont; // Para o caso das duplicatas
-    struct conjuntos* prox;
-} conjunto_t;
-
+#include "conjunto.h"
 
 typedef struct heroi {
 	int id;
@@ -39,6 +26,7 @@ typedef struct missao {
 	conjunto_t* habilidades; 
 } missao_t;
 
+#endif
 
 
 

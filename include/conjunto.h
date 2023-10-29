@@ -4,18 +4,18 @@
 
 #include "aux.h"
 
-typedef struct lista {
+typedef struct conjunto {
     int conteudo;
     int cont; // Para o caso das duplicatas
-    struct lista* prox;
+    struct conjunto* prox;
 } conjunto_t;
 
 
-conjunto_t* inicializa (void); 
+conjunto_t* inicializaConjunto (void); 
 
 void imprimeConjunto(conjunto_t* l1, bool cont);
 
-bool insereInicio(conjunto_t** inicio, int conteudo);
+bool insereConjunto(conjunto_t** inicio, int conteudo); 
 
 bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3);
 

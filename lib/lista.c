@@ -2,7 +2,7 @@
 
 
 // Retorna uma lista vazia
-lista_t* inicializa(void) {
+lista_t* inicializaLista(void) {
     return NULL; 
 }
 
