@@ -7,7 +7,7 @@ lista_t* inicializa(void) {
 }
 
 //Imprime uma lista duplamente encadeada
-void imprimir(lista_t* inicio){
+void imprimeLista(lista_t* inicio){
 	lista_t* aux;
 
 	for (aux = inicio; aux != NULL; aux = aux->prox)
@@ -21,20 +21,20 @@ bool eh_vazia(lista_t* inicio){
 }
 
 // Insere no início um elemento da lista
-bool inserir(lista_t** inicio, int elem){
+bool insereInicio(lista_t** inicio, int elem){
 	lista_t* nodo;
     nodo = (lista_t*) malloc(sizeof(lista_t));
 
     if (nodo != NULL) {
-                nodo->prox = *inicio;
+        nodo->prox = *inicio;
 
 		// Certifica-se que o ant do primeiro elemento da lista
 		// aponte para o novo elemento
-        if (*inicio != NULL){ 
-            (*inicio)->ant = nodo;
-                }
+        // if (*inicio != NULL){ 
+        //     (*inicio)->ant = nodo;
+        //         }
 
-        nodo->ant = NULL;
+        // nodo->ant = NULL;
         nodo->elem = elem;
 
         *inicio = nodo; 
@@ -44,20 +44,70 @@ bool inserir(lista_t** inicio, int elem){
     return false;
 }
 
+bool insereOrdenado(lista_t** inicio, int elem){
+	lista_t *nodo, *aux;
+
+	nodo = (lista_t*) malloc(sizeof(lista_t));
+	if (!nodo)
+			return false;
+
+	// Caso se insira no início da lista
+	if (*inicio == NULL) {
+
+		nodo->elem = elem;
+		(*inicio) = nodo;
+
+		return true;
+	}
+
+	// Caso se existe apenas um elemento na lista
+	if ((*inicio)->elem > elem) {
+		nodo->elem = elem;
+		nodo->prox = (*inicio);
+		(*inicio) = nodo;
+
+		return true;
+	}
+
+	aux = *inicio;
+
+	// Caso se insira no meio ou final da lista
+	while (aux->prox != NULL && aux->prox->elem < elem) 
+		aux = aux->prox;
+
+	nodo->elem = elem;
+	nodo->prox  = aux->prox;
+	aux->prox = nodo;
+
+	return true;
+
+};
+
 
 // Remove um nodo de uma lista
-bool removerNodo(lista_t** inicio, lista_t* nodo) {
+// bool removerNodo(lista_t** inicio, lista_t* nodo) {
 
+// 	if (*inicio == NULL)
+// 		return false;
+
+// 	if (nodo->ant != NULL) 
+// 		nodo->ant->prox = nodo->prox;
+
+// 	else *inicio = nodo->prox;
+
+// 	if (nodo->prox != NULL)
+// 		nodo->prox->ant = nodo->ant;
+
+// 	return true;
+// }
+
+// Remove do início da lista
+bool removeInicio(lista_t** inicio){
+	
 	if (*inicio == NULL)
 		return false;
 
-	if (nodo->ant != NULL) 
-		nodo->ant->prox = nodo->prox;
-
-	else *inicio = nodo->prox;
-
-	if (nodo->prox != NULL)
-		nodo->prox->ant = nodo->ant;
+	*inicio = (*inicio)->prox;
 
 	return true;
 }

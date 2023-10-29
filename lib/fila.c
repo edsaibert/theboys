@@ -1,17 +1,17 @@
 #include "../include/fila.h"
 
-bool eh_cheia(struct fila *f) {
+bool ehCheiaFila(struct fila *f) {
     return (f->fim == N_HEROIS);
 }
 
-bool eh_vazia(struct fila *f) {
+bool ehVaziaFila(struct fila *f) {
     return (f->fim == 0);
 }
 
-bool ve_inicio(struct fila *f, int *conteudo) {
+bool veInicio(struct fila *f, int *conteudo) {
 
     //teste fila vazia
-    if (!eh_vazia(f)) {
+    if (!ehVaziaFila(f)) {
         *conteudo = f->v[0];
         return true;
     }
@@ -24,7 +24,7 @@ bool ve_inicio(struct fila *f, int *conteudo) {
 bool enfileirar(struct fila *f, int conteudo) {
 
     //teste fila cheia
-    if (!eh_cheia(f)) {
+    if (!ehCheiaFila(f)) {
        f->v[f->fim] = conteudo;
        (f->fim)++;
 
@@ -44,7 +44,7 @@ void deslocar(struct fila *f) {
 bool desenfileirar(struct fila *f, int *conteudo) {
 
     // teste fila vazia
-    if (!eh_vazia(f)) {
+    if (!ehVaziaFila(f)) {
         *conteudo = f->v[0];
         deslocar(f);
 

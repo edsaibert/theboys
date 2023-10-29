@@ -13,7 +13,7 @@ conjunto_t* inicializa (void) {
     return NULL;
 }
 
-void imprimeLista(conjunto_t* l1, bool cont){
+void imprimeConjunto(conjunto_t* l1, bool cont){
     conjunto_t* aux; 
     for (aux = l1; aux != NULL; aux = aux->prox){
         printf("%d ", aux->conteudo);
