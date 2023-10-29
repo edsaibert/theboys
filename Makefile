@@ -16,4 +16,4 @@ main.o: main.c
 	$(CC) -c $(CFLAGS) $< -I $(INCLUDE) -o $(OBJ)/$@
 
 clean:
-	rm -f ./obj/*.o main 
+	rm -f $(OBJ)/*.o $(OBJ)/main 
