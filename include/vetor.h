@@ -1,7 +1,7 @@
 #ifndef VETOR_H
 #define VETOR_H
 
-#include "aux.h"
+#include "atributos.h"
 
 void imprimeVetor(int *v, int tam);
 

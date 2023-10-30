@@ -1,7 +1,7 @@
 #ifndef FILA_H
 #define FILA_H
 
-#include "aux.h"
+#include "atributos.h"
 
 typedef struct fila {
     int fim;
