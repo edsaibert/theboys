@@ -1,14 +1,19 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include "aux.h"
+#include "atributos.h"
+#include "theboys.h"
+
+struct Entidades {
+   heroi_t* heroi;
+   base_t* base;
+};
 
 typedef struct lista {
-
-   // struct lista* ant;
-   struct lista* prox;
    int elem;
-
+   int tipo;
+   struct lista* prox;
+   struct Entidades entidades;
 } lista_t;
 
 
@@ -28,6 +33,6 @@ bool removeInicio(lista_t** inicio);
 
 bool buscar(lista_t* inicio, lista_t** nodo, int elem);
 
-bool freeFila(lista_t** inicio);
+bool freeLista(lista_t** inicio);
 
 #endif

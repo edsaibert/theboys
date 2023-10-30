@@ -2,7 +2,7 @@
 #ifndef LIB_LISTA_H
 #define LIB_LISTA_H
 
-#include "aux.h"
+#include "atributos.h"
 
 typedef struct conjunto {
     int conteudo;
