@@ -1,5 +1,9 @@
 #include "../include/fila.h"
 
+fila_t* inicializaFila(){
+    return NULL;
+}
+
 bool ehCheiaFila(struct fila *f) {
     return (f->fim == N_HEROIS);
 }

@@ -25,8 +25,9 @@ int main() {
 
         inicializaHeroi(i, &heroi);
 
-        int base = rand() % N_HEROIS;
-        inicializaBase(i, &base);
+        // Necessario inicializar bases ANTES de inserir na lista
+        // int n_base = rand() % N_HEROIS;
+        // inicializaBase(n_base, &base);
 
         int tempo = rand() % 4320; // 3 dias em minutos
 
