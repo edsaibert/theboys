@@ -17,25 +17,38 @@ Por Eduarda Saibert =D
 int main() {
     lista_t* lef;
     srand(0);
+
+	// Cria vetor que contém as bases
+	base_t** v_bases;
+	*v_bases = (base_t*) (sizeof(base_t) * N_BASES);
+
+	if (v_bases == NULL)
+		return 1;
+
+
+	// Inicializa todas as bases da simulação
+	for (int i = 0; i < N_BASES; i++) {
+		base_t* base;
+
+		inicializaBase(i, &base);
+		v_bases[i] = base;				// Mantém todas as bases no vetor v_bases
+	}
     
+
+    // Realiza o evento CHEGA de cada heroi
     for (int i = 0; i < N_HEROIS; i++) {
-        // Realiza o evento CHEGA de cada heroi
         heroi_t* heroi;
-        base_t* base;
+		int n_base;
 
-        inicializaHeroi(i, &heroi);
+        inicializaHeroi(i, &heroi);		// Cria a struct Heroi
 
-        // Necessario inicializar bases ANTES de inserir na lista
-        // int n_base = rand() % N_HEROIS;
-        // inicializaBase(n_base, &base);
+		n_base = rand() % N_BASES;		// Sorteia uma base para a chegada do heroi
 
-        int tempo = rand() % 4320; // 3 dias em minutos
+        int tempo = rand() % 4320;		// 3 dias em minutos
 
-
-        // insereOrdenado(&lef, tempo, tipo, entidades);
+		// Insere ordenado na LEF (Lista de Eventos Futuros)
+        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base]);
     }
-
-    imprimeLista(lef);
 
     return 0;
 

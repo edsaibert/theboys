@@ -6,7 +6,7 @@ lista_t* inicializaLista(void) {
     return NULL; 
 }
 
-//Imprime uma lista duplamente encadeada
+//Imprime uma lista encadeada
 void imprimeLista(lista_t* inicio){
 	lista_t* aux;
 
@@ -44,17 +44,54 @@ bool insereInicio(lista_t** inicio, int elem){
     return false;
 }
 
-bool insereOrdenado(lista_t** inicio, int elem){
-	lista_t *nodo, *aux;
+bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base) {
+	entidade_t* aux;
 
-	nodo = (lista_t*) malloc(sizeof(lista_t));
-	if (!nodo)
-			return false;
+	aux = (entidade_t*) malloc(sizeof(entidade_t));
+
+	if (aux != NULL) {
+		aux->heroi = heroi;
+		aux->base = base;
+
+		*entidade = aux;
+		return true;
+	}
+
+	return false;
+}
+
+// Cria um nodo com base nos seus parâmetros
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
+	lista_t* aux;
+
+	aux = (lista_t*) malloc(sizeof(lista_t));
+
+	if (aux != NULL) {
+		aux->entidade = entidade;
+		aux->tempo = tempo;
+		aux->idFuncao = idFuncao;
+
+		*nodo = aux;
+		return true;
+	}
+
+	return false;
+}
+
+// reformular 
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base){
+	lista_t *nodo, *aux, *entidade;
+
+	// cria as entidades heroi e base que servem de parametros de eventos 
+	if (!criaEntidade(&entidade, heroi, base))
+		return false;
+
+	// cria o nodo a ser inserido
+	if (!criaNodo(&nodo, entidade, tempo, idFuncao))
+		return false;
 
 	// Caso se insira no início da lista
 	if (*inicio == NULL) {
-
-		nodo->elem = elem;
 		(*inicio) = nodo;
 
 		return true;
@@ -62,7 +99,6 @@ bool insereOrdenado(lista_t** inicio, int elem){
 
 	// Caso se existe apenas um elemento na lista
 	if ((*inicio)->elem > elem) {
-		nodo->elem = elem;
 		nodo->prox = (*inicio);
 		(*inicio) = nodo;
 
@@ -75,8 +111,7 @@ bool insereOrdenado(lista_t** inicio, int elem){
 	while (aux->prox != NULL && aux->prox->elem < elem) 
 		aux = aux->prox;
 
-	nodo->elem = elem;
-	nodo->prox  = aux->prox;
+	nodo->prox = aux->prox;
 	aux->prox = nodo;
 
 	return true;

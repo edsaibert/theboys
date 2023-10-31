@@ -4,16 +4,16 @@
 #include "atributos.h"
 #include "theboys.h"
 
-struct Entidades {
+typedef struct Entidades {
    heroi_t* heroi;
    base_t* base;
-};
+} entidade_t;
 
 typedef struct lista {
-   int elem;
-   int tipo;
+   int tempo;
+   int idFuncao;
    struct lista* prox;
-   struct Entidades entidades;
+   entidade_t* entidade;
 } lista_t;
 
 
@@ -23,15 +23,19 @@ void imprimeLista(lista_t* inicio);
 
 bool eh_vazia(lista_t* inicio);
 
-bool insereInicio(lista_t** inicio, int elem);
+bool insereInicio(lista_t** inicio, int tempo);
 
-bool insereOrdenado(lista_t** inicio, int elem);
+bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base);
+
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao);
+
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base);
 
 // bool removerNodo(lista_t** inicio, lista_t* nodo);
 
 bool removeInicio(lista_t** inicio);
 
-bool buscar(lista_t* inicio, lista_t** nodo, int elem);
+bool buscar(lista_t* inicio, lista_t** nodo, int tempo);
 
 bool freeLista(lista_t** inicio);
 

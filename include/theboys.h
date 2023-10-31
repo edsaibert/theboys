@@ -18,7 +18,7 @@ typedef struct base {
 	int local[2];
 	int lotacao;
 	conjunto_t* presentes;
-	fila_t* espera; // incluir bib separada para fila
+	fila_t* espera; 
 } base_t;
 
 typedef struct missao {
@@ -26,11 +26,6 @@ typedef struct missao {
 	int local[2];
 	conjunto_t* habilidades; 
 } missao_t;
-
-struct chega {
-	int base;
-	int heroi;
-};
 
 bool inicializaHeroi(int id, heroi_t** heroi);
 
