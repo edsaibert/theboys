@@ -27,6 +27,11 @@ typedef struct missao {
 	conjunto_t* habilidades; 
 } missao_t;
 
+typedef struct v_bases {
+	int id;
+	base_t* base;
+} v_bases_t;
+
 bool inicializaHeroi(int id, heroi_t** heroi);
 
 bool inicializaBase(int id, base_t** base);

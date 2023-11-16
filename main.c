@@ -19,8 +19,8 @@ int main() {
     srand(0);
 
 	// Cria vetor que contém as bases
-	base_t** v_bases;
-	*v_bases = (base_t*) (sizeof(base_t) * N_BASES);
+	v_bases_t* v_bases;
+	v_bases = (v_bases_t*) malloc(sizeof(v_bases_t) * N_BASES);
 
 	if (v_bases == NULL)
 		return 1;
@@ -31,11 +31,13 @@ int main() {
 		base_t* base;
 
 		inicializaBase(i, &base);
-		v_bases[i] = base;				// Mantém todas as bases no vetor v_bases
+		printf("%d", base->id);
+		v_bases[i].base = base;				// Mantém todas as bases no vetor v_bases
 	}
     
 
     // Realiza o evento CHEGA de cada heroi
+	
     for (int i = 0; i < N_HEROIS; i++) {
         heroi_t* heroi;
 		int n_base;
@@ -47,9 +49,10 @@ int main() {
         int tempo = rand() % 4320;		// 3 dias em minutos
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base]);
+        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base].base);
     }
 
-    return 0;
-
+    return 1;
 }
+
+

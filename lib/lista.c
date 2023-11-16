@@ -11,7 +11,7 @@ void imprimeLista(lista_t* inicio){
 	lista_t* aux;
 
 	for (aux = inicio; aux != NULL; aux = aux->prox)
-		printf("%d ", aux->elem);
+		printf("%d ", aux->tempo);
 	printf("\n");
 }
 
@@ -20,22 +20,22 @@ bool eh_vazia(lista_t* inicio){
 	return (inicio == NULL);
 }
 
-// Insere no início um elemento da lista
-bool insereInicio(lista_t** inicio, int elem){
+// Insere no início um tempoento da lista
+bool insereInicio(lista_t** inicio, int tempo){
 	lista_t* nodo;
     nodo = (lista_t*) malloc(sizeof(lista_t));
 
     if (nodo != NULL) {
         nodo->prox = *inicio;
 
-		// Certifica-se que o ant do primeiro elemento da lista
-		// aponte para o novo elemento
+		// Certifica-se que o ant do primeiro tempoento da lista
+		// aponte para o novo tempoento
         // if (*inicio != NULL){ 
         //     (*inicio)->ant = nodo;
         //         }
 
         // nodo->ant = NULL;
-        nodo->elem = elem;
+        nodo->tempo = tempo;
 
         *inicio = nodo; 
 
@@ -80,7 +80,8 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
 
 // reformular 
 bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base){
-	lista_t *nodo, *aux, *entidade;
+	lista_t *nodo, *aux;
+	entidade_t* entidade;
 
 	// cria as entidades heroi e base que servem de parametros de eventos 
 	if (!criaEntidade(&entidade, heroi, base))
@@ -97,8 +98,8 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 		return true;
 	}
 
-	// Caso se existe apenas um elemento na lista
-	if ((*inicio)->elem > elem) {
+	// Caso se existe apenas um tempoento na lista
+	if ((*inicio)->tempo > tempo) {
 		nodo->prox = (*inicio);
 		(*inicio) = nodo;
 
@@ -108,7 +109,7 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 	aux = *inicio;
 
 	// Caso se insira no meio ou final da lista
-	while (aux->prox != NULL && aux->prox->elem < elem) 
+	while (aux->prox != NULL && aux->prox->tempo < tempo) 
 		aux = aux->prox;
 
 	nodo->prox = aux->prox;
@@ -148,14 +149,14 @@ bool removeInicio(lista_t** inicio){
 }
 
 //Busca a existência de um valor e retorna o nodo que o contém
-bool buscar(lista_t* inicio, lista_t** nodo, int elem){
+bool buscar(lista_t* inicio, lista_t** nodo, int tempo){
 	lista_t* aux;
 
 	if (inicio == NULL)
 		return false;
 
 	for (aux = inicio; aux != NULL; aux = aux->prox) {
-		if (aux->elem == elem) {
+		if (aux->tempo == tempo) {
 			*nodo = aux;	
 			return true;
 		}

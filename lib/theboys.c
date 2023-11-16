@@ -53,6 +53,7 @@ bool inicializaBase(int id, base_t** base) {
     aux->espera = inicializaFila();
 
     *base = aux;
+
     return true;
 }
 
