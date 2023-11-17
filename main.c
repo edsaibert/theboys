@@ -18,13 +18,15 @@ int main() {
     lista_t* lef;
     srand(0);
 
+	// ******************************************************
+	// EVENTOS INICIAIS
+
 	// Cria vetor que contém as bases
 	v_bases_t* v_bases;
 	v_bases = (v_bases_t*) malloc(sizeof(v_bases_t) * N_BASES);
 
 	if (v_bases == NULL)
 		return 1;
-
 
 	// Inicializa todas as bases da simulação
 	for (int i = 0; i < N_BASES; i++) {
@@ -36,7 +38,6 @@ int main() {
 	}
     
     // Realiza o evento CHEGA de cada heroi
-	
     for (int i = 0; i < N_HEROIS; i++) {
         heroi_t* heroi;
 		int n_base;
@@ -48,9 +49,31 @@ int main() {
         int tempo = rand() % 4320;		// 3 dias em minutos
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base].base);
+        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base].base, NULL);
     }
 
+	// Gera todas as missões 
+	for (int i = 0; i < N_MISSOES; i++){
+		missao_t* missao;
+
+		inicializaMissao(i, &missao);
+
+		int tempo = rand() % T_FIM_DO_MUNDO;
+
+		// Insere ordenado na LEF (Lista de Eventos Futuros)
+		insereOrdenado(&lef, tempo, 2, NULL, NULL, missao);
+		printf("Missao %d\n", i);
+		printf("Tempo: %d\n", tempo);
+		printf("Local: %d %d\n", missao->local[0], missao->local[1]);
+		printf("Habilidades: ");
+		imprimeConjunto(missao->habilidades, false);
+		printf("\n");
+	}
+
+	// ******************************************************
+
+
+	freeLista(&lef);
     return 1;
 }
 

@@ -57,6 +57,47 @@ bool inicializaBase(int id, base_t** base) {
     return true;
 }
 
+// Inicializa a entidade missao
+bool inicializaMissao(int id, missao_t** missao) {
+    missao_t* aux;
+    conjunto_t* habilidades;
 
+    aux = (missao_t*) malloc(sizeof(missao_t));
+
+    if (aux == NULL) {
+        printf("Erro ao alocar memória para a missao %d\n", id);
+        return false;
+    }
+
+    aux->id = id;
+    aux->local[0] = rand() % N_TAMANHO_MUNDO;       // Coordenada x
+    aux->local[1] = rand() % N_TAMANHO_MUNDO;       // Coordenada y
+
+    int maxHabilidade = MIN_HAB_MISSAO + rand() % (N_HABILIDADES - MIN_HAB_MISSAO); // [6 .. 10]
+    // Cria o conjunto de habilidades
+    habilidades = inicializaConjunto();
+    for (int i = 0; i < maxHabilidade; i++)
+        insereConjunto(&habilidades, 1 + rand() % (N_HABILIDADES - 1)); // Sorteia uma habilidade [1 .. 10]
+
+    return 1;
+}
+
+// Cria struct entidade para ser armazenada na lista de eventos futuros
+bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base, missao_t* missao) {
+	entidade_t* aux;
+
+	aux = (entidade_t*) malloc(sizeof(entidade_t));
+
+	if (aux != NULL) {
+		aux->heroi = heroi;
+		aux->base = base;
+		aux->missao = missao;
+
+		*entidade = aux;
+		return true;
+	}
+
+	return false;
+}
 
 #endif

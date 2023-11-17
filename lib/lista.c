@@ -20,7 +20,7 @@ bool eh_vazia(lista_t* inicio){
 	return (inicio == NULL);
 }
 
-// Insere no início um tempoento da lista
+// Insere no início um elemento da lista
 bool insereInicio(lista_t** inicio, int tempo){
 	lista_t* nodo;
     nodo = (lista_t*) malloc(sizeof(lista_t));
@@ -44,22 +44,6 @@ bool insereInicio(lista_t** inicio, int tempo){
     return false;
 }
 
-bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base) {
-	entidade_t* aux;
-
-	aux = (entidade_t*) malloc(sizeof(entidade_t));
-
-	if (aux != NULL) {
-		aux->heroi = heroi;
-		aux->base = base;
-
-		*entidade = aux;
-		return true;
-	}
-
-	return false;
-}
-
 // Cria um nodo com base nos seus parâmetros
 bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
 	lista_t* aux;
@@ -78,13 +62,13 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
 	return false;
 }
 
-// reformular 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base){
+// Insere na Lista de Eventos Futuros 
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base, missao_t* missao){
 	lista_t *nodo, *aux;
 	entidade_t* entidade;
 
-	// cria as entidades heroi e base que servem de parametros de eventos 
-	if (!criaEntidade(&entidade, heroi, base))
+	// cria as entidades heroi ,base e missao que servem de parametros de eventos 
+	if (!criaEntidade(&entidade, heroi, base, missao))
 		return false;
 
 	// cria o nodo a ser inserido
@@ -98,7 +82,7 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 		return true;
 	}
 
-	// Caso se existe apenas um tempoento na lista
+	// Caso se existe apenas um elemento na lista
 	if ((*inicio)->tempo > tempo) {
 		nodo->prox = (*inicio);
 		(*inicio) = nodo;

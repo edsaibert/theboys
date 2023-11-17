@@ -4,11 +4,6 @@
 #include "atributos.h"
 #include "entidades.h"
 
-typedef struct Entidades {
-   heroi_t* heroi;
-   base_t* base;
-} entidade_t;
-
 typedef struct lista {
    int tempo;
    int idFuncao;
@@ -25,11 +20,9 @@ bool eh_vazia(lista_t* inicio);
 
 bool insereInicio(lista_t** inicio, int tempo);
 
-bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base);
-
 bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao);
 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base);
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base, missao_t* missao);
 
 // bool removerNodo(lista_t** inicio, lista_t* nodo);
 
