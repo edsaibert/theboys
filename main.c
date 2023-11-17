@@ -15,8 +15,8 @@ Por Eduarda Saibert =D
 */
 
 int main() {
+	srand(time(NULL));	
     lista_t* lef;
-    srand(0);
 
 	// ******************************************************
 	// EVENTOS INICIAIS

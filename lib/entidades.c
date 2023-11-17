@@ -20,18 +20,24 @@ bool inicializaHeroi(int id, heroi_t** heroi){
     aux->paciencia = rand() % MAX_PACIENCIA;
     aux->velocidade = MIN_VELOCIDADE + rand() % (MAX_VELOCIDADE - MIN_VELOCIDADE); // [50 .. 5000]
     
-    int maxHabilidade = 1 + rand() % 3; // [1 .. 3] 
+    int maxHabilidade = 1 + rand() % 3; // Sorteia o máximo de habilidades [1 .. 3] 
 
     // Cria o conjunto de habilidades
     habilidades = inicializaConjunto();
-    for (int i = 0; i < maxHabilidade; i++) 
-        insereConjunto(&habilidades, 1 + rand() % (N_HABILIDADES - 1)); // Sorteia uma habilidade [1 .. 10] 
+    
+    int i = 0;
+    while (i < maxHabilidade){
+        int aleat = 1 + rand() % (N_HABILIDADES - 1); // Sorteia uma habilidade [1 .. 10]
+        if (!existe(habilidades, aleat)){
+            insereConjunto(&habilidades, aleat); // insere no conjunto de habilidades 
+            i++;
+        }
+    }
 
    aux->habilidades = habilidades;
 
     *heroi = aux;
     return true; 
-
 }
 
 // Inicializa a entidade base
@@ -76,8 +82,18 @@ bool inicializaMissao(int id, missao_t** missao) {
     int maxHabilidade = MIN_HAB_MISSAO + rand() % (N_HABILIDADES - MIN_HAB_MISSAO); // [6 .. 10]
     // Cria o conjunto de habilidades
     habilidades = inicializaConjunto();
-    for (int i = 0; i < maxHabilidade; i++)
-        insereConjunto(&habilidades, 1 + rand() % (N_HABILIDADES - 1)); // Sorteia uma habilidade [1 .. 10]
+
+    int i = 0;
+    while (i < maxHabilidade){
+        int aleat = 1 + rand() % (N_HABILIDADES - 1); // Sorteia uma habilidade [1 .. 10]
+        if (!existe(habilidades, aleat)){
+            insereConjunto(&habilidades, aleat); // insere no conjunto de habilidades 
+            i++;
+        }
+    }
+
+    aux->habilidades = habilidades;
+    *missao = aux;
 
     return 1;
 }
