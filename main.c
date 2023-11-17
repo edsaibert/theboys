@@ -1,6 +1,6 @@
 
 #include "./include/atributos.h"
-#include "./include/theboys.h"
+#include "./include/entidades.h"
 #include "./include/conjunto.h"
 #include "./include/fila.h"
 #include "./include/lista.h"
@@ -35,7 +35,6 @@ int main() {
 		v_bases[i].base = base;				// Mantém todas as bases no vetor v_bases
 	}
     
-
     // Realiza o evento CHEGA de cada heroi
 	
     for (int i = 0; i < N_HEROIS; i++) {

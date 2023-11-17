@@ -2,7 +2,7 @@
 #define LISTA_H
 
 #include "atributos.h"
-#include "theboys.h"
+#include "entidades.h"
 
 typedef struct Entidades {
    heroi_t* heroi;

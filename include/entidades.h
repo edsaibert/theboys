@@ -36,6 +36,9 @@ bool inicializaHeroi(int id, heroi_t** heroi);
 
 bool inicializaBase(int id, base_t** base);
 
+bool inicializaMissao(int id, missao_t** missao);
+
+
 #endif
 
 

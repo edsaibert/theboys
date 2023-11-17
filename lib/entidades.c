@@ -1,7 +1,7 @@
 #ifndef THEBOYS_H
 #define THEBOYS_H
 
-#include "../include/theboys.h"
+#include "../include/entidades.h"
 
 // Inicializa a entidade heroi
 bool inicializaHeroi(int id, heroi_t** heroi){
@@ -46,9 +46,9 @@ bool inicializaBase(int id, base_t** base) {
     }
     
     aux->id = id;
-    aux->local[0] = rand() % N_TAMANHO_MUNDO;
-    aux->local[1] = rand() % N_TAMANHO_MUNDO;
-    aux->lotacao = 3 + rand() % (10 - 3); // [3 .. 10]
+    aux->local[0] = rand() % N_TAMANHO_MUNDO;       // Coordenada x
+    aux->local[1] = rand() % N_TAMANHO_MUNDO;       // Coordenada y
+    aux->lotacao = 3 + rand() % (10 - 3);           // [3 .. 10]
     aux->presentes = inicializaConjunto();
     aux->espera = inicializaFila();
 
@@ -56,5 +56,7 @@ bool inicializaBase(int id, base_t** base) {
 
     return true;
 }
+
+
 
 #endif

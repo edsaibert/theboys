@@ -8,7 +8,7 @@ OBJ = ./obj# pasta com .o (objetos), dessa forma, a manutenção é mais fácil
 all: main.o libed 
 	$(CC) -o main $(OBJ)/*.o
 
-libed: fila.o conjunto.o lista.o vetor.o theboys.o
+libed: fila.o conjunto.o lista.o vetor.o entidades.o 
 
 main.o: main.c
 	$(CC) -c $(CFLAGS) $< -o $(OBJ)/$@
