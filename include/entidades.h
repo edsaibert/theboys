@@ -46,6 +46,7 @@ bool inicializaMissao(int id, missao_t** missao);
 
 bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base, missao_t* missao);
 
+
 #endif
 
 

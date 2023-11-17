@@ -34,7 +34,7 @@ int main() {
 
 		inicializaBase(i, &base);
 		printf("%d", base->id);
-		v_bases[i].base = base;				// Mantém todas as bases no vetor v_bases
+		v_bases[i].base = base;			// Mantém todas as bases no vetor v_bases
 	}
     
     // Realiza o evento CHEGA de cada heroi
@@ -49,7 +49,7 @@ int main() {
         int tempo = rand() % 4320;		// 3 dias em minutos
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-        insereOrdenado(&lef, tempo, 1, heroi, v_bases[n_base].base, NULL);
+        insereOrdenado(&lef, tempo, 0, heroi, v_bases[n_base].base, NULL);
     }
 
 	// Gera todas as missões 
@@ -61,19 +61,33 @@ int main() {
 		int tempo = rand() % T_FIM_DO_MUNDO;
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-		insereOrdenado(&lef, tempo, 2, NULL, NULL, missao);
-		printf("Missao %d\n", i);
-		printf("Tempo: %d\n", tempo);
-		printf("Local: %d %d\n", missao->local[0], missao->local[1]);
-		printf("Habilidades: ");
-		imprimeConjunto(missao->habilidades, false);
-		printf("\n");
+		insereOrdenado(&lef, tempo, 1, NULL, NULL, missao);
+		
 	}
 
 	// ******************************************************
+	// RELÓGIO DA SIMULAÇÃO
 
+	int tempo = 0;
 
-	freeLista(&lef);
+	while (tempo <= T_FIM_DO_MUNDO && lef->prox != NULL){
+		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
+		int backup = lef->tempo;
+		while (lef->tempo == tempo && lef->prox != NULL){
+			executa(&lef); 			// Executa o evento
+
+			lef = lef->prox;
+		}
+		// Incrementa o tempo
+		if (tempo == 0)
+			tempo += lef->tempo;
+		else
+			tempo += lef->tempo - backup;
+	}
+
+	// ******************************************************
+	// EVENTOS FINAIS (free)
+
     return 1;
 }
 

@@ -1,6 +1,5 @@
 #include "../include/lista.h"
 
-
 // Retorna uma lista vazia
 lista_t* inicializaLista(void) {
     return NULL; 
@@ -18,30 +17,6 @@ void imprimeLista(lista_t* inicio){
 // Retorna se a lista é vazia
 bool eh_vazia(lista_t* inicio){
 	return (inicio == NULL);
-}
-
-// Insere no início um elemento da lista
-bool insereInicio(lista_t** inicio, int tempo){
-	lista_t* nodo;
-    nodo = (lista_t*) malloc(sizeof(lista_t));
-
-    if (nodo != NULL) {
-        nodo->prox = *inicio;
-
-		// Certifica-se que o ant do primeiro tempoento da lista
-		// aponte para o novo tempoento
-        // if (*inicio != NULL){ 
-        //     (*inicio)->ant = nodo;
-        //         }
-
-        // nodo->ant = NULL;
-        nodo->tempo = tempo;
-
-        *inicio = nodo; 
-
-        return true;
-    } 
-    return false;
 }
 
 // Cria um nodo com base nos seus parâmetros
@@ -68,7 +43,7 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 	entidade_t* entidade;
 
 	// cria as entidades heroi ,base e missao que servem de parametros de eventos 
-	if (!criaEntidade(&entidade, heroi, base, missao))
+	if (!criaEntidade(&entidade, heroi, base, missao)) 		// arquivo entidades.h
 		return false;
 
 	// cria o nodo a ser inserido
@@ -104,23 +79,6 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 };
 
 
-// Remove um nodo de uma lista
-// bool removerNodo(lista_t** inicio, lista_t* nodo) {
-
-// 	if (*inicio == NULL)
-// 		return false;
-
-// 	if (nodo->ant != NULL) 
-// 		nodo->ant->prox = nodo->prox;
-
-// 	else *inicio = nodo->prox;
-
-// 	if (nodo->prox != NULL)
-// 		nodo->prox->ant = nodo->ant;
-
-// 	return true;
-// }
-
 // Remove do início da lista
 bool removeInicio(lista_t** inicio){
 	
@@ -149,21 +107,57 @@ bool buscar(lista_t* inicio, lista_t** nodo, int tempo){
 	return false;
 }
 
-bool freeLista(lista_t** inicio){
-	lista_t* aux;
 
-	if (*inicio == NULL)
-		return false;
+/*	Executa o evento de acordo com o idFuncao
+ 	Funcoes definidas em eventos.h	*/ 
+bool executa(lista_t** inicio){
+	printf("\nExecutando evento %d\n", (*inicio)->idFuncao);
 
-	while (*inicio != NULL) {
-		aux = *inicio;
-		*inicio = (*inicio)->prox;
-		free(aux);
+	switch ((*inicio)->idFuncao) {
+		case 0:
+			// CHEGA
+			if (!chega((*inicio)->entidade))
+				return false;
+			break;
+		case 1:
+			// MISSAO
+			if (!missao((*inicio)->entidade))
+				return false;
+			break;
+		case 2:
+			// ESPERA
+			if (!espera((*inicio)->entidade))
+				return false;
+			break;
+		case 3:
+			// DESISTE
+			if (!desiste((*inicio)->entidade))
+				return false;
+			break;
+		case 4:
+			// AVISA
+			if (!avisa((*inicio)->entidade))
+				return false;
+			break;
+		case 5: 
+			// ENTRA
+			if (!entra((*inicio)->entidade)) 
+				return false;
+			break;
+		case 6:
+			// SAI
+			if (!sai((*inicio)->entidade))
+				return false;
+			break;
+		case 7:
+			// VIAJA
+			if (!viaja((*inicio)->entidade))
+				return false;
+			break;
+		
+		default:
+			printf("Erro ao executar evento\n");
+			return false;
 	}
-
 	return true;
 }
-
-
-
-
