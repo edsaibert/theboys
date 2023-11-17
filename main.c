@@ -5,6 +5,7 @@
 #include "./include/fila.h"
 #include "./include/lista.h"
 #include "./include/vetor.h"
+#include "./include/eventos.h"
 
 /*
 ##############################################
