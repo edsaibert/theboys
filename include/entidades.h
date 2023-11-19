@@ -10,6 +10,7 @@ typedef struct heroi {
 	int experiencia;
 	int paciencia;
 	int velocidade;
+	int idBase;
 	conjunto_t* habilidades;	
 } heroi_t;
 
