@@ -111,47 +111,46 @@ bool buscar(lista_t* inicio, lista_t** nodo, int tempo){
 /*	Executa o evento de acordo com o idFuncao
  	Funcoes definidas em eventos.h	*/ 
 bool executa(lista_t** inicio){
-	printf("\nExecutando evento %d\n", (*inicio)->idFuncao);
 
 	switch ((*inicio)->idFuncao) {
 		case 0:
 			// CHEGA
-			if (!chega((*inicio)->entidade))
+			if (!chega(inicio))
 				return false;
 			break;
 		case 1:
 			// MISSAO
-			if (!missao((*inicio)->entidade))
+			if (!missao(inicio))
 				return false;
 			break;
 		case 2:
 			// ESPERA
-			if (!espera((*inicio)->entidade))
+			if (!espera(inicio))
 				return false;
 			break;
 		case 3:
 			// DESISTE
-			if (!desiste((*inicio)->entidade))
+			if (!desiste(inicio))
 				return false;
 			break;
 		case 4:
 			// AVISA
-			if (!avisa((*inicio)->entidade))
+			if (!avisa(inicio))
 				return false;
 			break;
 		case 5: 
 			// ENTRA
-			if (!entra((*inicio)->entidade)) 
+			if (!entra(inicio)) 
 				return false;
 			break;
 		case 6:
 			// SAI
-			if (!sai((*inicio)->entidade))
+			if (!sai(inicio))
 				return false;
 			break;
 		case 7:
 			// VIAJA
-			if (!viaja((*inicio)->entidade))
+			if (!viaja(inicio))
 				return false;
 			break;
 		

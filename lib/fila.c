@@ -1,7 +1,18 @@
 #include "../include/fila.h"
 
-fila_t* inicializaFila(){
-    return NULL;
+// Inicializa a fila
+bool inicializaFila(fila_t** fila){
+    fila_t* aux = (fila_t*) malloc(sizeof(fila_t));
+
+    if (aux == NULL) {
+        printf("Erro ao alocar memória para a fila\n");
+        return false;    
+    }
+
+    aux->fim = 0;
+    (*fila) = aux;
+
+    return true;
 }
 
 // Checa se a fila está cheia

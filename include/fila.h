@@ -8,7 +8,7 @@ typedef struct fila {
     int v[N_HEROIS]; // O máximo que a fila pode suportar é o número máximo de heróis
 } fila_t;
 
-fila_t* inicializaFila(void);
+bool inicializaFila(struct fila **fila);
 
 bool ehCheiaFila(struct fila *f);
 

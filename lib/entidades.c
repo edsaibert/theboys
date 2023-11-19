@@ -43,6 +43,7 @@ bool inicializaHeroi(int id, heroi_t** heroi){
 // Inicializa a entidade base
 bool inicializaBase(int id, base_t** base) {
     base_t* aux;
+    fila_t* espera;
 
     aux = (base_t*) malloc(sizeof(base_t));
 
@@ -56,7 +57,11 @@ bool inicializaBase(int id, base_t** base) {
     aux->local[1] = rand() % N_TAMANHO_MUNDO;       // Coordenada y
     aux->lotacao = 3 + rand() % (10 - 3);           // [3 .. 10]
     aux->presentes = inicializaConjunto();
-    aux->espera = inicializaFila();
+
+    if (inicializaFila(&espera))
+        aux->espera = espera;
+    else 
+        return false;
 
     *base = aux;
 

@@ -3,22 +3,22 @@
 
 #include "atributos.h"
 #include "entidades.h"
+#include "lista.h"
 
+bool chega(lista_t** inicio);       // idFuncao : 0
 
-bool chega(entidade_t* entidade);       // idFuncao : 0
+bool missao(lista_t** inicio);      // idFuncao : 1
 
-bool missao(entidade_t* entidade);      // idFuncao : 1
+bool espera(lista_t** inicio);      // idFuncao : 2
 
-bool espera(entidade_t* entidade);      // idFuncao : 2
+bool desiste(lista_t** inicio);     // idFuncao : 3
 
-bool desiste(entidade_t* entidade);     // idFuncao : 3
+bool avisa(lista_t** inicio);       // idFuncao : 4
 
-bool avisa(entidade_t* entidade);       // idFuncao : 4
+bool entra(lista_t** inicio);       // idFuncao : 5
 
-bool entra(entidade_t* entidade);       // idFuncao : 5
+bool sai(lista_t** inicio);         // idFuncao : 6
 
-bool sai(entidade_t* entidade);         // idFuncao : 6
-
-bool viaja(entidade_t* entidade);       // idFuncao : 7
+bool viaja(lista_t** inicio);       // idFuncao : 7
 
 #endif

@@ -3,7 +3,6 @@
 
 #include "atributos.h"
 #include "entidades.h"
-#include "eventos.h"
 
 typedef struct lista {
    int tempo;
@@ -12,6 +11,7 @@ typedef struct lista {
    entidade_t* entidade;
 } lista_t;
 
+#include "eventos.h"
 
 lista_t* inicializaLista(void);
 
