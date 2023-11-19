@@ -24,4 +24,6 @@ bool desenfileirar(struct fila *f, int *conteudo);
 
 void imprimirFila(struct fila *f);
 
+int tamanhoFila(struct fila *f);
+
 #endif
