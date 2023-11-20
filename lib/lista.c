@@ -163,12 +163,12 @@ bool executa(lista_t** inicio){
 }
 
 // Libera a memória alocada para a lista
-void freeLista(lista_t** inicio){
+void freeLista(lista_t* inicio){
 	lista_t* aux;
 
-	while (*inicio != NULL) {
-		aux = *inicio;
-		*inicio = (*inicio)->prox;
+	while (inicio != NULL) {
+		aux = inicio;
+		inicio = inicio->prox;
 		free(aux);
 	}
 }

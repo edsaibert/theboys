@@ -3,8 +3,14 @@
 
 // Evento CHEGA(H, B)
 bool chega(lista_t** inicio){
-    int espera = false;
+    bool espera = false;
     // Struct auxiliar
+
+    // TESTE (TIRAR DEPOIS)
+    if (inicio == NULL){
+        return false;
+    }
+
     entidade_t* entidade = (*inicio)->entidade;
 
     // Atualiza base do herói
@@ -68,14 +74,8 @@ bool desiste(lista_t** inicio){
 
     // Escolhe outra base aleatória
     idNovaBase = rand() % (N_BASES);
-    printf("id = %d\n", idNovaBase);
-    // Cria evento VIAJA(H, B)
 
-    if ((*inicio)->v_bases[idNovaBase].base == NULL)
-    {
-        printf("Erro: base não inicializada\n");
-        return false;
-    }
+    // Cria evento VIAJA(H, B)
     if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases,
                         (*inicio)->entidade->heroi, (*inicio)->v_bases[idNovaBase].base, NULL))
         return false;

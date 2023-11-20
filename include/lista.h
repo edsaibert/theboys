@@ -31,6 +31,6 @@ bool buscar(lista_t* inicio, lista_t** nodo, int tempo);
 
 bool executa(lista_t** inicio);
 
-void freeLista(lista_t** inicio);
+void freeLista(lista_t* inicio);
 
 #endif

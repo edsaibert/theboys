@@ -24,7 +24,7 @@ int main() {
 
 	// Cria vetor que contém as bases
 	v_bases_t* v_bases;
-	v_bases = (v_bases_t*) malloc(sizeof(v_bases_t) * N_BASES);
+	v_bases = (v_bases_t*) malloc(sizeof(v_bases_t) * (N_BASES));
 
 	if (v_bases == NULL)
 		return 1;
@@ -44,7 +44,7 @@ int main() {
 
         inicializaHeroi(i, &heroi);		// Cria a struct Heroi
 
-		n_base = rand() % N_BASES;		// Sorteia uma base para a chegada do heroi
+		n_base = rand() % (N_BASES);		// Sorteia uma base para a chegada do heroi
 
         int tempo = rand() % 4320;		// 3 dias em minutos
 
@@ -88,7 +88,7 @@ int main() {
 	// ******************************************************
 	// EVENTOS FINAIS (free)
 
-	freeLista(&lef);
+	freeLista(lef);
 
     return 1;
 }
