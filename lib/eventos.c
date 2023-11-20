@@ -1,6 +1,7 @@
 #include "../include/eventos.h"
 
 
+// Evento CHEGA(H, B)
 bool chega(lista_t** inicio){
     int espera = false;
     // Struct auxiliar
@@ -24,20 +25,21 @@ bool chega(lista_t** inicio){
     
     if (espera) {
         // Cria evento ESPERA(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, entidade->heroi, entidade->base, NULL))
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, (*inicio)->v_bases, entidade->heroi, entidade->base, NULL))
             return false;
     }
-    else
+    else {
         // Cria evento DESISTE(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, entidade->heroi, entidade->base, NULL))
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, (*inicio)->v_bases, entidade->heroi, entidade->base, NULL))
             return false;
-
+    }
     return true;
     
 };       
 
 bool missao(lista_t** inicio){};      
 
+// Evento ESPERA(H, B)
 bool espera(lista_t** inicio){
     // Adiciona heroi na lista de espera da base
     if (!enfileirar((*inicio)->entidade->base->espera, (*inicio)->entidade->heroi->id))
@@ -48,22 +50,49 @@ bool espera(lista_t** inicio){
             tamanhoFila((*inicio)->entidade->base->espera), (*inicio)->entidade->base->lotacao);
     
     // Cria evento AVISA(B)
+    // if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases,
+    //                     NULL, (*inicio)->entidade->base, NULL))
+    //     return false;
+
     return true;
 };      
 
+// Evento DESISTE(H, B)
 bool desiste(lista_t** inicio){
+    int idNovaBase;
+    v_bases_t* v_bases = (*inicio)->v_bases;
+
     printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) DESISTE\n",
            (*inicio)->tempo, (*inicio)->entidade->heroi->id, (*inicio)->entidade->base->id,
            tamanhoFila((*inicio)->entidade->base->espera), (*inicio)->entidade->base->lotacao);
 
     // Escolhe outra base aleatória
+    idNovaBase = rand() % (N_BASES);
+    printf("id = %d\n", idNovaBase);
     // Cria evento VIAJA(H, B)
+
+    if ((*inicio)->v_bases[idNovaBase].base == NULL)
+    {
+        printf("Erro: base não inicializada\n");
+        return false;
+    }
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases,
+                        (*inicio)->entidade->heroi, (*inicio)->v_bases[idNovaBase].base, NULL))
+        return false;
 };     
 
-bool avisa(lista_t** inicio){};       
+bool avisa(lista_t** inicio){
+    return false;
+};       
 
-bool entra(lista_t** inicio){};       
+bool entra(lista_t** inicio){
+    return false;
+};       
 
-bool sai(lista_t** inicio){};         
+bool sai(lista_t** inicio){
+    return false;
+};         
 
-bool viaja(lista_t** inicio){};
+bool viaja(lista_t** inicio){
+    return false;
+};

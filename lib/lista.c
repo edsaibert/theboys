@@ -20,7 +20,7 @@ bool eh_vazia(lista_t* inicio){
 }
 
 // Cria um nodo com base nos seus parâmetros
-bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t* v_bases) {
 	lista_t* aux;
 
 	aux = (lista_t*) malloc(sizeof(lista_t));
@@ -29,6 +29,7 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
 		aux->entidade = entidade;
 		aux->tempo = tempo;
 		aux->idFuncao = idFuncao;
+		aux->v_bases = v_bases;
 
 		*nodo = aux;
 		return true;
@@ -38,7 +39,7 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao) {
 }
 
 // Insere na Lista de Eventos Futuros 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base, missao_t* missao){
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t* v_bases, heroi_t* heroi, base_t* base, missao_t* missao){
 	lista_t *nodo, *aux;
 	entidade_t* entidade;
 
@@ -47,7 +48,7 @@ bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, b
 		return false;
 
 	// cria o nodo a ser inserido
-	if (!criaNodo(&nodo, entidade, tempo, idFuncao))
+	if (!criaNodo(&nodo, entidade, tempo, idFuncao, v_bases))
 		return false;
 
 	// Caso se insira no início da lista
@@ -159,4 +160,15 @@ bool executa(lista_t** inicio){
 			return false;
 	}
 	return true;
+}
+
+// Libera a memória alocada para a lista
+void freeLista(lista_t** inicio){
+	lista_t* aux;
+
+	while (*inicio != NULL) {
+		aux = *inicio;
+		*inicio = (*inicio)->prox;
+		free(aux);
+	}
 }

@@ -8,6 +8,7 @@ typedef struct lista {
    int tempo;
    int idFuncao;
    struct lista* prox;
+   v_bases_t* v_bases;
    entidade_t* entidade;
 } lista_t;
 
@@ -19,14 +20,17 @@ void imprimeLista(lista_t* inicio);
 
 bool eh_vazia(lista_t* inicio);
 
-bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao);
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t* v_bases);
 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, heroi_t* heroi, base_t* base, missao_t* missao);
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t* v_bases, 
+                     heroi_t* heroi, base_t* base, missao_t* missao);
 
 bool removeInicio(lista_t** inicio);
 
 bool buscar(lista_t* inicio, lista_t** nodo, int tempo);
 
 bool executa(lista_t** inicio);
+
+void freeLista(lista_t** inicio);
 
 #endif

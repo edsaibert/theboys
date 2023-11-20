@@ -34,7 +34,6 @@ int main() {
 		base_t* base;
 
 		inicializaBase(i, &base);
-		printf("%d", base->id);
 		v_bases[i].base = base;			// Mantém todas as bases no vetor v_bases
 	}
     
@@ -50,7 +49,7 @@ int main() {
         int tempo = rand() % 4320;		// 3 dias em minutos
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-        insereOrdenado(&lef, tempo, 0, heroi, v_bases[n_base].base, NULL);
+        insereOrdenado(&lef, tempo, 0, v_bases, heroi, v_bases[n_base].base, NULL);
     }
 
 	// Gera todas as missões 
@@ -62,7 +61,7 @@ int main() {
 		int tempo = rand() % T_FIM_DO_MUNDO;
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-		insereOrdenado(&lef, tempo, 1, NULL, NULL, missao);
+		insereOrdenado(&lef, tempo, 1, v_bases, NULL, NULL, missao);
 		
 	}
 
@@ -88,6 +87,8 @@ int main() {
 
 	// ******************************************************
 	// EVENTOS FINAIS (free)
+
+	freeLista(&lef);
 
     return 1;
 }
