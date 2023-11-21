@@ -70,12 +70,14 @@ bool espera(lista_t** inicio){
             (*inicio)->tempo, heroi->id, base->id, 
             tamanhoFila(base->espera), base->lotacao);
 
-    entidade = criaEntidade(heroi->id, base->id, NULL);
+    entidade = criaEntidade(NULL, base->id, NULL);
+
+    (*inicio)->v_bases[(base->id)].base = base;
+    (*inicio)->v_herois[(heroi->id)].heroi = heroi;
     
     // Cria evento AVISA(B)
-    // if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases,
-    //                     NULL, (*inicio)->entidade->base, NULL))
-    //     return false;
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+        return false;
 
     return true;
 };      
@@ -109,7 +111,43 @@ bool desiste(lista_t** inicio){
 };     
 
 bool avisa(lista_t** inicio){
-    return false;
+    base_t* base;
+    heroi_t* heroi;
+    entidade_t* entidade;
+
+    // Busca base
+    base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
+
+    // Mensagem
+    base_t* aux = base;
+
+    printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ",
+           (*inicio)->tempo, base->id, tamanhoFila(base->espera), base->lotacao);
+
+    // Aviso de Fila
+    for (int i = 0; i < tamanhoFila(aux->espera); i++){
+        int idHeroi;
+        desenfileirar(aux->espera, &idHeroi);
+        heroi = (*inicio)->v_herois[idHeroi].heroi;
+        printf("%2d ", heroi->id);
+    }
+    printf("]\n");
+
+    // Enquanto houver heróis na fila e vagas na base
+    while (!ehVaziaFila(base->espera) && (tamanhoFila(base->espera) < base->lotacao)){
+        int idHeroi;
+
+        desenfileirar(base->espera, &idHeroi);
+        heroi = (*inicio)->v_herois[idHeroi].heroi; 
+
+        if (!insereConjunto(&(base->presentes), heroi->id))
+            return false;
+
+        printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d",
+               (*inicio)->tempo, base->id, idHeroi);
+    }
+
+    return true;
 };       
 
 bool entra(lista_t** inicio){

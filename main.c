@@ -95,8 +95,6 @@ int main() {
 
 			freeEntidade(aux->entidade);
 			free(aux);
-			// freeVbases(v_bases);
-			// freeVherois(v_herois);	
 		}
 		// Incrementa o tempo
 		if (tempo == 0)
@@ -107,6 +105,9 @@ int main() {
 
 	// ******************************************************
 	// EVENTOS FINAIS (free)
+	freeVherois(v_herois);
+	freeVbases(v_bases);
+	free(aux);
 
 	return 1;
 }
