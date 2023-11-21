@@ -29,9 +29,9 @@ typedef struct missao {
 } missao_t;
 
 typedef struct Entidades {
-   heroi_t* heroi;
-   base_t* base;
-   missao_t* missao;
+	int heroiId;
+	int baseId;
+	missao_t* missao;
 } entidade_t;
 
 typedef struct v_bases {
@@ -39,13 +39,18 @@ typedef struct v_bases {
 	base_t* base;
 } v_bases_t;
 
+typedef struct v_herois {
+	int id;
+	heroi_t* heroi;
+} v_herois_t;
+
 bool inicializaHeroi(int id, heroi_t** heroi);
 
 bool inicializaBase(int id, base_t** base);
 
 bool inicializaMissao(int id, missao_t** missao);
 
-bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base, missao_t* missao);
+entidade_t* criaEntidade(int heroiId, int baseId, missao_t* missaoId);
 
 void freeVbases(v_bases_t* v_bases);
 

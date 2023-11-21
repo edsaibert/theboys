@@ -20,7 +20,7 @@ bool eh_vazia(lista_t* inicio){
 }
 
 // Cria um nodo com base nos seus parâmetros
-bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t* v_bases) {
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t* v_bases, v_herois_t* v_herois) {
 	lista_t* aux;
 
 	aux = (lista_t*) malloc(sizeof(lista_t));
@@ -39,16 +39,11 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_b
 }
 
 // Insere na Lista de Eventos Futuros 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t* v_bases, heroi_t* heroi, base_t* base, missao_t* missao){
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t* v_bases, v_herois_t* v_herois, entidade_t* entidade){
 	lista_t *nodo, *aux;
-	entidade_t* entidade;
-
-	// cria as entidades heroi ,base e missao que servem de parametros de eventos 
-	if (!criaEntidade(&entidade, heroi, base, missao)) 		// arquivo entidades.h
-		return false;
 
 	// cria o nodo a ser inserido
-	if (!criaNodo(&nodo, entidade, tempo, idFuncao, v_bases))
+	if (!criaNodo(&nodo, entidade, tempo, idFuncao, v_bases, v_herois))
 		return false;
 
 	// Caso se insira no início da lista
