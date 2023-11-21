@@ -11,7 +11,7 @@ typedef struct conjunto {
 } conjunto_t;
 
 
-conjunto_t* inicializaConjunto (void); 
+bool inicializaConjunto (conjunto_t** conjunto); 
 
 void imprimeConjunto(conjunto_t* l1, bool cont);
 

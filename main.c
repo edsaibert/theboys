@@ -69,14 +69,21 @@ int main() {
 	// RELÓGIO DA SIMULAÇÃO
 
 	int tempo = 0;
+	lista_t* aux;
 
 	while (tempo <= T_FIM_DO_MUNDO && lef->prox != NULL){
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
 		int backup = lef->tempo;
 		while (lef->tempo == tempo && lef->prox != NULL){
+			aux = lef;
 			executa(&lef); 			// Executa o evento
-
 			lef = lef->prox;
+
+			free(aux);	
+			freeEntidade(aux);
+			
+			// necessario free nas entidades
+			// necessario free na lista v_bases
 		}
 		// Incrementa o tempo
 		if (tempo == 0)
@@ -88,7 +95,10 @@ int main() {
 	// ******************************************************
 	// EVENTOS FINAIS (free)
 
-	freeLista(lef);
+	for (int i = 0; i < N_BASES; i++) {
+		free(v_bases[i].base->espera);
+		free(v_bases[i].base);
+	}	
 
     return 1;
 }

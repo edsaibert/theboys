@@ -7,7 +7,7 @@ bool chega(lista_t** inicio){
     // Struct auxiliar
 
     // TESTE (TIRAR DEPOIS)
-    if (inicio == NULL){
+    if (inicio == NULL || (*inicio) == NULL){
         return false;
     }
 
@@ -39,11 +39,14 @@ bool chega(lista_t** inicio){
         if (!insereOrdenado(inicio, (*inicio)->tempo, 3, (*inicio)->v_bases, entidade->heroi, entidade->base, NULL))
             return false;
     }
+
     return true;
-    
 };       
 
-bool missao(lista_t** inicio){};      
+bool missao(lista_t** inicio){
+    printf("%6d: MISSAO\n", (*inicio)->tempo);
+    return false;
+};      
 
 // Evento ESPERA(H, B)
 bool espera(lista_t** inicio){

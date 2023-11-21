@@ -9,8 +9,17 @@ Por Eduarda Saibert =D
 */
 
 // Retorna uma lista vazia
-conjunto_t* inicializaConjunto (void) {
-    return NULL;
+bool inicializaConjunto (conjunto_t** conjunto) {
+    conjunto_t* aux;
+
+    aux = (conjunto_t*) malloc(sizeof(conjunto_t));
+
+    if (aux == NULL) {
+        return false;
+    }
+
+    *conjunto = aux;
+    return true;
 }
 
 void imprimeConjunto(conjunto_t* l1, bool cont){

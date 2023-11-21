@@ -23,7 +23,8 @@ bool inicializaHeroi(int id, heroi_t** heroi){
     int maxHabilidade = 1 + rand() % 3; // Sorteia o máximo de habilidades [1 .. 3] 
 
     // Cria o conjunto de habilidades
-    habilidades = inicializaConjunto();
+    if (!inicializaConjunto(&habilidades))
+        return false;
     
     int i = 0;
     while (i < maxHabilidade){
@@ -56,7 +57,10 @@ bool inicializaBase(int id, base_t** base) {
     aux->local[0] = rand() % N_TAMANHO_MUNDO;       // Coordenada x
     aux->local[1] = rand() % N_TAMANHO_MUNDO;       // Coordenada y
     aux->lotacao = 3 + rand() % (10 - 3);           // [3 .. 10]
-    aux->presentes = inicializaConjunto();
+
+    if (!inicializaConjunto(&(aux->presentes))){
+        return false;
+    };
 
     if (inicializaFila(&espera))
         aux->espera = espera;
@@ -86,7 +90,8 @@ bool inicializaMissao(int id, missao_t** missao) {
 
     int maxHabilidade = MIN_HAB_MISSAO + rand() % (N_HABILIDADES - MIN_HAB_MISSAO); // [6 .. 10]
     // Cria o conjunto de habilidades
-    habilidades = inicializaConjunto();
+    if (!inicializaConjunto(&habilidades))
+        return false;
 
     int i = 0;
     while (i < maxHabilidade){
@@ -120,5 +125,24 @@ bool criaEntidade(entidade_t** entidade, heroi_t* heroi, base_t* base, missao_t*
 
 	return false;
 }
+
+// Libera o vetor de bases
+void freeVbases(v_bases_t* v_bases) {
+    for (int i = 0; i < N_BASES; i++) {
+        if (v_bases[i].base == NULL)
+            continue;
+
+        free(v_bases[i].base->espera);
+        free(v_bases[i].base->presentes);
+        free(v_bases[i].base);
+        v_bases[i].base = NULL;
+    }
+    free(v_bases);
+}
+
+void freeEntidade(entidade_t* entidade) {
+   
+  
+};
 
 #endif
