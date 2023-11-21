@@ -36,9 +36,9 @@ bool inicializaHeroi(int id, heroi_t** heroi){
     }
 
    aux->habilidades = habilidades;
+   *heroi = aux;
 
-    *heroi = aux;
-    return true; 
+   return true; 
 }
 
 // Inicializa a entidade base
@@ -134,9 +134,26 @@ void freeVbases(v_bases_t* v_bases) {
     free(v_bases);
 }
 
+void freeVherois(v_herois_t* v_herois) {
+    for (int i = 0; i < N_HEROIS; i++) {
+        if (v_herois[i].heroi == NULL)
+            continue;
+
+        free(v_herois[i].heroi->habilidades);
+        free(v_herois[i].heroi);
+        v_herois[i].heroi = NULL;
+    }
+    free(v_herois);
+}
+
 void freeEntidade(entidade_t* entidade) {
-   
+    if (entidade == NULL || entidade->missao == NULL)
+        return;
+    
+    free(entidade->missao->habilidades);
+    free(entidade->missao);
   
+    return;
 };
 
 #endif

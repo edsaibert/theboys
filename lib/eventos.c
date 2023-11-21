@@ -15,9 +15,6 @@ bool chega(lista_t** inicio){
     }
 
     // Atualiza base do herói
-    if ((*inicio)->v_herois == NULL){
-        return false;
-    }
     heroi = (*inicio)->v_herois[(*inicio)->entidade->heroiId].heroi;           // "Descobre" herói
     heroi->idBase = (*inicio)->entidade->baseId;
 
@@ -51,7 +48,7 @@ bool chega(lista_t** inicio){
 };       
 
 bool missao(lista_t** inicio){
-    printf("%6d: MISSAO\n", (*inicio)->tempo);
+    // printf("%6d: MISSAO\n", (*inicio)->tempo);
     return false;
 };      
 

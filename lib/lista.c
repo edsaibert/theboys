@@ -30,6 +30,7 @@ bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_b
 		aux->tempo = tempo;
 		aux->idFuncao = idFuncao;
 		aux->v_bases = v_bases;
+		aux->v_herois = v_herois;
 
 		*nodo = aux;
 		return true;

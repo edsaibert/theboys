@@ -39,16 +39,15 @@ int main() {
 		v_bases[i].base = base;			// Mantém todas as bases no vetor v_bases
 	}
 
-    
-    // Realiza o evento CHEGA de cada heroi
+	// Inicializa todos os heróis da simulação
     for (int i = 0; i < N_HEROIS; i++) {
         heroi_t* heroi;
 
         inicializaHeroi(i, &heroi);		// Cria a struct Heroi
-		v_herois[i].heroi = heroi;		// Adiciona herói à lista
+		v_herois[i].heroi = heroi;		// Adiciona herói ao vetor v_herois 
     }
 
-	// Insere ordenado na LEF (Lista de Eventos Futuros)
+    // Realiza o evento CHEGA de cada heroi
 	for (int i = 0; i < N_HEROIS; i++){
 		entidade_t* entidade;
         heroi_t* heroi;
@@ -56,8 +55,11 @@ int main() {
 		
 		heroi = v_herois[i].heroi;
 		n_base = rand() % (N_BASES);	// Sorteia uma base para a chegada do heroi
+		heroi->idBase = n_base;			// Atualiza a base do heroi
+
         int tempo = rand() % 4320;		// 3 dias em minutos
 
+		// Insere ordenado na LEF (Lista de Eventos Futuros)
 		entidade = criaEntidade(heroi->id, n_base, NULL);
         insereOrdenado(&lef, tempo, 0, v_bases, v_herois, entidade);
 	}
@@ -91,9 +93,10 @@ int main() {
 			executa(&lef); 			// Executa o evento
 			lef = lef->prox;
 
-			free(aux);	
-			// necessario free nas entidades
-			// necessario free na lista v_bases
+			freeEntidade(aux->entidade);
+			free(aux);
+			// freeVbases(v_bases);
+			// freeVherois(v_herois);	
 		}
 		// Incrementa o tempo
 		if (tempo == 0)
@@ -105,12 +108,7 @@ int main() {
 	// ******************************************************
 	// EVENTOS FINAIS (free)
 
-	for (int i = 0; i < N_BASES; i++) {
-		free(v_bases[i].base->espera);
-		free(v_bases[i].base);
-	}	
-
-    return 1;
+	return 1;
 }
 
 

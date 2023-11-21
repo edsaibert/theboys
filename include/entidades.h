@@ -54,6 +54,8 @@ entidade_t* criaEntidade(int heroiId, int baseId, missao_t* missaoId);
 
 void freeVbases(v_bases_t* v_bases);
 
+void freeVherois(v_herois_t* v_herois);
+
 void freeEntidade(entidade_t* entidade);
 
 #endif
