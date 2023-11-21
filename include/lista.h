@@ -21,9 +21,9 @@ void imprimeLista(lista_t* inicio);
 
 bool eh_vazia(lista_t* inicio);
 
-bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t* v_bases, v_herois_t* v_herois);
+bool criaNodo(lista_t** nodo, entidade_t* entidade, int tempo, int idFuncao, v_bases_t** v_bases, v_herois_t** v_herois);
 
-bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t* v_bases, v_herois_t* v_heroi, entidade_t* entidade);
+bool insereOrdenado(lista_t** inicio, int tempo, int idFuncao, v_bases_t** v_bases, v_herois_t** v_heroi, entidade_t* entidade);
 
 bool removeInicio(lista_t** inicio);
 

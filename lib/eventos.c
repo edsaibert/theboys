@@ -35,12 +35,12 @@ bool chega(lista_t** inicio){
    entidade = criaEntidade(heroi->id, heroi->idBase, NULL); 
     if (espera) {
         // Cria evento ESPERA(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade))
             return false;
     }
     else {
         // Cria evento DESISTE(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, (*inicio)->v_bases, (*inicio)->v_herois, entidade)) 
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade)) 
             return false;
     }
 
@@ -57,10 +57,11 @@ bool espera(lista_t** inicio){
     heroi_t* heroi;
     base_t* base;
     entidade_t* entidade;
+    v_bases_t* v_bases = (*inicio)->v_bases;   
 
     // "Descobre heroi e base"
     heroi = (*inicio)->v_herois[(*inicio)->entidade->heroiId].heroi;
-    base =  (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
+    base =  v_bases[(*inicio)->entidade->baseId].base;
 
     // Adiciona heroi na lista de espera da base
     if (!enfileirar(base->espera, heroi->id))
@@ -72,11 +73,10 @@ bool espera(lista_t** inicio){
 
     entidade = criaEntidade(NULL, base->id, NULL);
 
-    (*inicio)->v_bases[(base->id)].base = base;
     (*inicio)->v_herois[(heroi->id)].heroi = heroi;
     
     // Cria evento AVISA(B)
-    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, &(v_bases), &((*inicio)->v_herois), entidade))
         return false;
 
     return true;
@@ -103,7 +103,7 @@ bool desiste(lista_t** inicio){
 
     // Cria evento VIAJA(H, B)
     entidade = criaEntidade(heroi->id, idNovaBase, NULL);
-    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases, (*inicio)->v_herois, entidade)){
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade)){
         return false;
     }
 
@@ -118,7 +118,8 @@ bool avisa(lista_t** inicio){
     // Busca base
     base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
 
-    // Mensagem
+    // MENSAGEM  
+    // --------
     base_t* aux = base;
 
     printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ",
@@ -132,9 +133,10 @@ bool avisa(lista_t** inicio){
         printf("%2d ", heroi->id);
     }
     printf("]\n");
+    // --------
 
     // Enquanto houver heróis na fila e vagas na base
-    while (!ehVaziaFila(base->espera) && (tamanhoFila(base->espera) < base->lotacao)){
+    while (!ehVaziaFila(base->espera) && (tamanhoConjunto(base->presentes) < base->lotacao)){
         int idHeroi;
 
         desenfileirar(base->espera, &idHeroi);

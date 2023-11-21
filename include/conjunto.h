@@ -17,6 +17,8 @@ void imprimeConjunto(conjunto_t* l1, bool cont);
 
 bool insereConjunto(conjunto_t** inicio, int conteudo); 
 
+int tamanhoConjunto(conjunto_t* l);
+
 bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3);
 
 bool existe(conjunto_t* l, int conteudo);

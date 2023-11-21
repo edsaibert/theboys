@@ -51,6 +51,17 @@ bool insereConjunto(conjunto_t** inicio, int conteudo){
     return false; 
 }
 
+// Conta os elementos de l1
+int tamanhoConjunto(conjunto_t* l1){
+    conjunto_t* aux;
+    int cont = 0;
+
+    for (aux = l1; aux != NULL; aux = aux->prox)
+        cont++;
+
+    return cont;
+}
+
 // Faz a concatenação das listas l1 e l2
 bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3){
     // Vincula o endereço de l3 à l1
