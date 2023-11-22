@@ -61,7 +61,7 @@ int main() {
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
 		entidade = criaEntidade(heroi->id, n_base, NULL);
-        insereOrdenado(&lef, tempo, 0, &v_bases, &v_herois, entidade);
+        insereOrdenado(&lef, tempo, 0, v_bases, v_herois, entidade);
 	}
 
 	// Gera todas as missões 
@@ -75,7 +75,7 @@ int main() {
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
 		entidade = criaEntidade(0, 0, missao);
-		insereOrdenado(&lef, tempo, 1, &v_bases, &v_herois, entidade);
+		insereOrdenado(&lef, tempo, 1, v_bases, v_herois, entidade);
 		
 	}
 

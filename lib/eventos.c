@@ -35,12 +35,12 @@ bool chega(lista_t** inicio){
    entidade = criaEntidade(heroi->id, heroi->idBase, NULL); 
     if (espera) {
         // Cria evento ESPERA(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade))
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 2, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
             return false;
     }
     else {
         // Cria evento DESISTE(H, B)
-        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade)) 
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 3, (*inicio)->v_bases, (*inicio)->v_herois, entidade)) 
             return false;
     }
 
@@ -69,14 +69,14 @@ bool espera(lista_t** inicio){
 
     printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) ESPERA\n", 
             (*inicio)->tempo, heroi->id, base->id, 
-            tamanhoFila(base->espera), base->lotacao);
+            tamanhoConjunto(base->presentes), base->lotacao);
 
     entidade = criaEntidade(NULL, base->id, NULL);
 
     (*inicio)->v_herois[(heroi->id)].heroi = heroi;
     
     // Cria evento AVISA(B)
-    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, &(v_bases), &((*inicio)->v_herois), entidade))
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, v_bases, (*inicio)->v_herois, entidade))
         return false;
 
     return true;
@@ -96,20 +96,21 @@ bool desiste(lista_t** inicio){
 
     printf("%6d: CHEGA  HEROI %2d BASE %d (%2d/%2d) DESISTE\n",
            (*inicio)->tempo, heroi->id, base->id,
-           tamanhoFila(base->espera), base->lotacao);
+           tamanhoConjunto(base->presentes), base->lotacao);
 
     // Escolhe outra base aleatória
     idNovaBase = rand() % (N_BASES);
 
     // Cria evento VIAJA(H, B)
     entidade = criaEntidade(heroi->id, idNovaBase, NULL);
-    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, &((*inicio)->v_bases), &((*inicio)->v_herois), entidade)){
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases, (*inicio)->v_herois, entidade)){
         return false;
     }
 
     return true;
 };     
 
+// Evento AVISA(B)
 bool avisa(lista_t** inicio){
     base_t* base;
     heroi_t* heroi;
@@ -118,19 +119,17 @@ bool avisa(lista_t** inicio){
     // Busca base
     base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
 
-    // MENSAGEM  
+    // MENSAGEM (Precisa estar antes)
     // --------
-    base_t* aux = base;
-
     printf("%6d: AVISA  PORTEIRO BASE %d (%2d/%2d) FILA [ ",
-           (*inicio)->tempo, base->id, tamanhoFila(base->espera), base->lotacao);
+           (*inicio)->tempo, base->id, tamanhoConjunto(base->presentes), base->lotacao);
 
     // Aviso de Fila
-    for (int i = 0; i < tamanhoFila(aux->espera); i++){
+    for (int i = 0; i < tamanhoFila(base->espera); i++){
         int idHeroi;
-        desenfileirar(aux->espera, &idHeroi);
-        heroi = (*inicio)->v_herois[idHeroi].heroi;
-        printf("%2d ", heroi->id);
+        desenfileirar(base->espera, &idHeroi);
+        printf("%2d ", idHeroi);
+        enfileirar(base->espera, idHeroi);
     }
     printf("]\n");
     // --------
@@ -145,8 +144,12 @@ bool avisa(lista_t** inicio){
         if (!insereConjunto(&(base->presentes), heroi->id))
             return false;
 
-        printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d",
+        printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d\n",
                (*inicio)->tempo, base->id, idHeroi);
+
+        // Cria evento ENTRA(H, B, M)
+        entidade = criaEntidade(NULL, base->id, NULL);
+        insereOrdenado(inicio, (*inicio)->tempo, 5, (*inicio)->v_bases, (*inicio)->v_herois, entidade);
     }
 
     return true;
