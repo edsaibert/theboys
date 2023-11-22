@@ -147,19 +147,44 @@ bool avisa(lista_t** inicio){
         printf("%6d: AVISA  PORTEIRO BASE %d ADMITE %2d\n",
                (*inicio)->tempo, base->id, idHeroi);
 
-        // Cria evento ENTRA(H, B, M)
+        // Cria evento ENTRA(H, B)
         entidade = criaEntidade(NULL, base->id, NULL);
-        insereOrdenado(inicio, (*inicio)->tempo, 5, (*inicio)->v_bases, (*inicio)->v_herois, entidade);
+        if (!insereOrdenado(inicio, (*inicio)->tempo, 5, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+            return false;
     }
 
     return true;
 };       
 
+// Evento ENTRA(H, B)
 bool entra(lista_t** inicio){
-    return false;
+    heroi_t* heroi;
+    base_t* base;
+    entidade_t* entidade;
+    int tempoBase;      // Tempo de permanência na base
+    
+    // Busca heroi e base
+    heroi = (*inicio)->v_herois[(*inicio)->entidade->heroiId].heroi;
+    base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
+
+    tempoBase = heroi->paciencia * (1 + rand() % ( 20 - 1 )); // [1 .. 20] * paciência
+
+    // MENSAGEM 
+    printf("%6d: ENTRA  HEROI %2d BASE %d (%2d/%2d) SAI %d\n",
+           (*inicio)->tempo, heroi->id, heroi->idBase, tamanhoConjunto(base->presentes), 
+           base->lotacao, (*inicio)->tempo + tempoBase);
+    // --------
+
+    // Cria evento SAI(H, B)
+    entidade = criaEntidade(heroi->id, heroi->idBase, NULL);
+    if (!insereOrdenado(inicio, (*inicio)->tempo + tempoBase, 6, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+        return false;
+
+    return true;
 };       
 
 bool sai(lista_t** inicio){
+    printf("%6d: SAI\n", (*inicio)->tempo);
     return false;
 };         
 
