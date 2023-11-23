@@ -111,42 +111,42 @@ bool executa(lista_t** inicio){
 
 	switch ((*inicio)->idFuncao) {
 		case 0:
-			// CHEGA
+			// CHEGA(H, B)
 			if (!chega(inicio))
 				return false;
 			break;
 		case 1:
-			// MISSAO
+			// MISSAO(H, B)
 			if (!missao(inicio))
 				return false;
 			break;
 		case 2:
-			// ESPERA
+			// ESPERA(H, B)
 			if (!espera(inicio))
 				return false;
 			break;
 		case 3:
-			// DESISTE
+			// DESISTE(H, B)
 			if (!desiste(inicio))
 				return false;
 			break;
 		case 4:
-			// AVISA
+			// AVISA(B)
 			if (!avisa(inicio))
 				return false;
 			break;
 		case 5: 
-			// ENTRA
+			// ENTRA(B)
 			if (!entra(inicio)) 
 				return false;
 			break;
 		case 6:
-			// SAI
+			// SAI(B)
 			if (!sai(inicio))
 				return false;
 			break;
 		case 7:
-			// VIAJA
+			// VIAJA(H, B)
 			if (!viaja(inicio))
 				return false;
 			break;

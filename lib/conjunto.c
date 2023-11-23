@@ -176,16 +176,43 @@ bool duplicados(conjunto_t* l1, conjunto_t** l2){
     return true;
 }
 
-bool freeConjunto(conjunto_t** l){
-    conjunto_t* aux = *l;
+bool retiraConjunto(conjunto_t** l, int conteudo){
+    conjunto_t* aux = *l, *ant = NULL;
+
+    if (!existe(*l, conteudo))
+        return false;
+
+    // Se o conteúdo estiver no início da lista
+    if (aux->conteudo == conteudo){
+        *l = aux->prox;
+        free(aux);
+        return true;
+    }
+
+    // Se o conteúdo estiver no meio ou no fim da lista
+    while (aux->prox->prox != NULL && aux->prox->conteudo != conteudo){
+        aux = aux->prox;
+    }
+
+    if (aux->prox->conteudo == conteudo){
+        ant = aux->prox;
+        aux->prox = aux->prox->prox;
+        free(ant);
+    }
+
+    return true;
+}
+
+bool freeConjunto(conjunto_t* l){
+    conjunto_t* aux = l;
 
     if (l == NULL)
         return false;
 
     while (aux != NULL){
-        *l = aux->prox;
+        l = aux->prox;
         free(aux);
-        aux = *l;
+        aux = l;
     }
 
     return true;

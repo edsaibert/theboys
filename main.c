@@ -74,40 +74,42 @@ int main() {
 		int tempo = rand() % T_FIM_DO_MUNDO;
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-		entidade = criaEntidade(0, 0, missao);
+		entidade = criaEntidade(-1, -1, missao);
 		insereOrdenado(&lef, tempo, 1, v_bases, v_herois, entidade);
-		
 	}
 
 	// ******************************************************
 	// RELÓGIO DA SIMULAÇÃO
 
 	int tempo = 0;
-	lista_t* aux;
+	lista_t* aux = lef;
+	lista_t* temp;
 
-	while (tempo <= T_FIM_DO_MUNDO && lef->prox != NULL){
+	while (tempo <= T_FIM_DO_MUNDO && aux->prox != NULL){
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
-		int backup = lef->tempo;
-		while (lef->tempo == tempo && lef->prox != NULL){
-			aux = lef;
-			executa(&lef); 			// Executa o evento
-			lef = lef->prox;
-
-			freeEntidade(aux->entidade);
-			free(aux);
+		int backup = aux->tempo;
+		while (aux->tempo == tempo && aux->prox != NULL){
+			executa(&aux); 			// Executa o evento
+			aux = aux->prox;
 		}
 		// Incrementa o tempo
 		if (tempo == 0)
-			tempo += lef->tempo;
+			tempo += aux->tempo;
 		else
-			tempo += lef->tempo - backup;
+			tempo += aux->tempo - backup;
 	}
 
 	// ******************************************************
 	// EVENTOS FINAIS (free)
+
+	while (lef != NULL){
+		temp = lef->prox;
+		freeEntidade(lef->entidade);
+		free(lef);
+		lef = temp;
+	}
 	freeVherois(v_herois);
 	freeVbases(v_bases);
-	free(aux);
 
 	return 1;
 }

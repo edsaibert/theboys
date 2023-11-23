@@ -2,14 +2,16 @@
 
 // Inicializa a fila
 bool inicializaFila(fila_t** fila){
-    fila_t* aux = (fila_t*) malloc(sizeof(fila_t));
+    fila_t* aux;
 
-    if (aux == NULL) {
+    aux = (fila_t*) malloc(sizeof(fila_t));
+
+    if ( aux == NULL) {
         printf("Erro ao alocar memória para a fila\n");
         return false;    
     }
 
-    aux->fim = 0;
+    (aux)->fim = 0;
     (*fila) = aux;
 
     return true;

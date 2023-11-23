@@ -71,7 +71,7 @@ bool espera(lista_t** inicio){
             (*inicio)->tempo, heroi->id, base->id, 
             tamanhoConjunto(base->presentes), base->lotacao);
 
-    entidade = criaEntidade(NULL, base->id, NULL);
+    entidade = criaEntidade(-1, base->id, NULL);
 
     (*inicio)->v_herois[(heroi->id)].heroi = heroi;
     
@@ -148,7 +148,7 @@ bool avisa(lista_t** inicio){
                (*inicio)->tempo, base->id, idHeroi);
 
         // Cria evento ENTRA(H, B)
-        entidade = criaEntidade(NULL, base->id, NULL);
+        entidade = criaEntidade(idHeroi, base->id, NULL);
         if (!insereOrdenado(inicio, (*inicio)->tempo, 5, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
             return false;
     }
@@ -184,6 +184,38 @@ bool entra(lista_t** inicio){
 };       
 
 bool sai(lista_t** inicio){
+    base_t* base;
+    entidade_t* entidade;
+
+    // Retira heroi do conjunto de presentes da base
+    base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
+    if (!retiraConjunto(&(base->presentes), (*inicio)->entidade->heroiId))
+        return false;
+
+    // Escolhe uma base destino aleatória
+    int idNovaBase = rand() % (N_BASES);
+    base = (*inicio)->v_bases[idNovaBase].base;
+
+    // MENSAGEM
+    printf("%6d: SAI    HEROI %2d BASE %d (%2d/%2d)", 
+          (*inicio)->tempo, (*inicio)->entidade->heroiId, (*inicio)->entidade->baseId,
+          tamanhoConjunto(base->presentes), base->lotacao);
+    // --------
+
+    entidade = criaEntidade((*inicio)->entidade->heroiId, idNovaBase, NULL);
+    if (!entidade)
+        return false;
+
+    // Cria evento VIAJA(H, B)
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases, (*inicio)->v_herois, (*inicio)->entidade))
+        return false; 
+
+    // Cria evento AVISA(B)
+    entidade->heroiId = -1;
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases, (*inicio)->v_herois, (*inicio)->entidade))
+        return false;
+
+
     printf("%6d: SAI\n", (*inicio)->tempo);
     return false;
 };         
