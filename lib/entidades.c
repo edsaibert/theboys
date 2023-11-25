@@ -109,15 +109,20 @@ bool inicializaMissao(int id, missao_t** missao) {
 }
 
 // Cria struct entidade para ser armazenada na lista de eventos futuros
-entidade_t* criaEntidade(int heroiId, int baseId, missao_t* missao) {
+bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* missao) {
     entidade_t* aux;
     aux = (entidade_t*) malloc(sizeof(entidade_t));
 
+    if (aux == NULL || entidade == NULL) 
+        return false;
+
     aux->heroiId = heroiId;
     aux->baseId = baseId;
-    aux->missao =  missao;
+    aux->missao = missao;
 
-    return aux;
+    *entidade = aux;
+
+    return true;
 }
 
 // Libera o vetor de bases
@@ -151,10 +156,8 @@ void freeEntidade(entidade_t* entidade) {
         return;
     
     freeConjunto(entidade->missao->habilidades);
-    free(entidade->missao);
+    free(entidade->missao);    
     free(entidade);
-  
-    return;
 };
 
 #endif

@@ -50,7 +50,7 @@ bool inicializaBase(int id, base_t** base);
 
 bool inicializaMissao(int id, missao_t** missao);
 
-entidade_t* criaEntidade(int heroiId, int baseId, missao_t* missaoId);
+bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* missaoId);
 
 void freeVbases(v_bases_t* v_bases);
 

@@ -49,7 +49,7 @@ int main() {
 
     // Realiza o evento CHEGA de cada heroi
 	for (int i = 0; i < N_HEROIS; i++){
-		entidade_t* entidade;
+		entidade_t* entidade = NULL;
         heroi_t* heroi;
 		int n_base;
 		
@@ -60,21 +60,21 @@ int main() {
         int tempo = rand() % 4320;		// 3 dias em minutos
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-		entidade = criaEntidade(heroi->id, n_base, NULL);
+		criaEntidade(&entidade, heroi->id, n_base, NULL);
         insereOrdenado(&lef, tempo, 0, v_bases, v_herois, entidade);
 	}
 
 	// Gera todas as missões 
 	for (int i = 0; i < N_MISSOES; i++){
 		missao_t* missao;
-		entidade_t* entidade;
+		entidade_t* entidade = NULL;
 
 		inicializaMissao(i, &missao);
 
 		int tempo = rand() % T_FIM_DO_MUNDO;
 
 		// Insere ordenado na LEF (Lista de Eventos Futuros)
-		entidade = criaEntidade(-1, -1, missao);
+		criaEntidade(&entidade, -1, -1, missao);
 		insereOrdenado(&lef, tempo, 1, v_bases, v_herois, entidade);
 	}
 
@@ -85,7 +85,7 @@ int main() {
 	lista_t* aux = lef;
 	lista_t* temp;
 
-	while (tempo <= T_FIM_DO_MUNDO && aux->prox != NULL){
+	while (tempo <= 1000 && aux->prox != NULL){
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
 		int backup = aux->tempo;
 		while (aux->tempo == tempo && aux->prox != NULL){
