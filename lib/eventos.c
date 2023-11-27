@@ -202,8 +202,6 @@ bool sai(lista_t** inicio){
     int idNovaBase = rand() % (N_BASES);
 
     criaEntidade(&entidade, (*inicio)->entidade->heroiId, idNovaBase, NULL);
-    if (!entidade)
-        return false;
 
     // Cria evento VIAJA(H, B)
     if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases, (*inicio)->v_herois, entidade))

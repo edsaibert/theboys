@@ -195,19 +195,16 @@ bool retiraConjunto(conjunto_t** l, int conteudo){
 }
 
 bool freeConjunto(conjunto_t* l){
-    conjunto_t* aux = l;
+    conjunto_t* aux;
 
-    if (aux == NULL)
+    if (l == NULL)
         return false;
 
-    while (aux->prox != NULL){
-        l = aux->prox;
-        free(aux);
-        aux = l;
+    while (l != NULL){
+        aux = l->prox;
+        free(l);
+        l = aux;
     }
-
-    if (aux != NULL) 
-        free(aux);
 
     return true;
 }

@@ -131,7 +131,6 @@ void freeVbases(v_bases_t* v_bases) {
         free(v_bases[i].base->espera);
         freeConjunto(v_bases[i].base->presentes);
         free(v_bases[i].base);
-        // v_bases[i].base = NULL;
     }
     free(v_bases);
 }
@@ -141,8 +140,7 @@ void freeVherois(v_herois_t* v_herois) {
         if (v_herois[i].heroi == NULL)
             continue;
 
-        if (v_herois[i].heroi->habilidades != NULL)
-            freeConjunto(v_herois[i].heroi->habilidades);
+        freeConjunto(v_herois[i].heroi->habilidades);
         free(v_herois[i].heroi);
     }
     free(v_herois);
@@ -153,9 +151,7 @@ void freeEntidade(entidade_t* entidade) {
         return;
     
     if (entidade->missao != NULL){
-        if (entidade->missao->habilidades != NULL){
-            freeConjunto(entidade->missao->habilidades);
-        }
+        freeConjunto(entidade->missao->habilidades);
         free(entidade->missao);
     }
     free(entidade);

@@ -85,10 +85,10 @@ int main() {
 	lista_t* aux = lef;
 	lista_t* temp;
 
-	while (tempo <= T_FIM_DO_MUNDO && aux->prox != NULL){
+	while (tempo <= 1000 && aux != NULL){
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
 		int backup = aux->tempo;
-		while (aux->tempo == tempo && aux->prox != NULL){
+		while (aux != NULL && aux->tempo == tempo) {
 			executa(&aux); 			// Executa o evento
 			aux = aux->prox;
 		}
