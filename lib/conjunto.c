@@ -9,17 +9,8 @@ Por Eduarda Saibert =D
 */
 
 // Retorna uma lista vazia
-bool inicializaConjunto (conjunto_t** conjunto) {
-    conjunto_t* aux;
-
-    aux = (conjunto_t*) malloc(sizeof(conjunto_t));
-
-    if (aux == NULL) {
-        return false;
-    }
-
-    *conjunto = aux;
-    return true;
+conjunto_t* inicializaConjunto (void) {
+    return NULL;
 }
 
 void imprimeConjunto(conjunto_t* l1, bool cont){
@@ -206,14 +197,17 @@ bool retiraConjunto(conjunto_t** l, int conteudo){
 bool freeConjunto(conjunto_t* l){
     conjunto_t* aux = l;
 
-    if (l == NULL)
+    if (aux == NULL)
         return false;
 
-    while (aux != NULL){
+    while (aux->prox != NULL){
         l = aux->prox;
         free(aux);
         aux = l;
     }
+
+    if (aux != NULL) 
+        free(aux);
 
     return true;
 }

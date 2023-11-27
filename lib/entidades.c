@@ -23,9 +23,8 @@ bool inicializaHeroi(int id, heroi_t** heroi){
     int maxHabilidade = 1 + rand() % 3; // Sorteia o máximo de habilidades [1 .. 3] 
 
     // Cria o conjunto de habilidades
-    if (!inicializaConjunto(&habilidades))
-        return false;
-    
+    habilidades = inicializaConjunto();    
+
     int i = 0;
     while (i < maxHabilidade){
         int aleat = 1 + rand() % (N_HABILIDADES - 1); // Sorteia uma habilidade [1 .. 10]
@@ -58,9 +57,7 @@ bool inicializaBase(int id, base_t** base) {
     aux->local[1] = rand() % N_TAMANHO_MUNDO;       // Coordenada y
     aux->lotacao = 3 + rand() % (10 - 3);           // [3 .. 10]
 
-    if (!inicializaConjunto(&(aux->presentes))){
-        return false;
-    };
+    aux->presentes = inicializaConjunto();
 
     if (inicializaFila(&espera))
         aux->espera = espera;
@@ -90,14 +87,14 @@ bool inicializaMissao(int id, missao_t** missao) {
 
     int maxHabilidade = MIN_HAB_MISSAO + rand() % (N_HABILIDADES - MIN_HAB_MISSAO); // [6 .. 10]
     // Cria o conjunto de habilidades
-    if (!inicializaConjunto(&habilidades))
-        return false;
+
+    habilidades = inicializaConjunto(); 
 
     int i = 0;
     while (i < maxHabilidade){
         int aleat = 1 + rand() % (N_HABILIDADES - 1); // Sorteia uma habilidade [1 .. 10]
         if (!existe(habilidades, aleat)){
-            insereConjunto(&habilidades, aleat); // insere no conjunto de habilidades 
+            (insereConjunto(&habilidades, aleat)); // insere no conjunto de habilidades 
             i++;
         }
     }
@@ -113,7 +110,7 @@ bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* miss
     entidade_t* aux;
     aux = (entidade_t*) malloc(sizeof(entidade_t));
 
-    if (aux == NULL || entidade == NULL) 
+    if (aux == NULL) 
         return false;
 
     aux->heroiId = heroiId;
@@ -152,11 +149,15 @@ void freeVherois(v_herois_t* v_herois) {
 }
 
 void freeEntidade(entidade_t* entidade) {
-    if (entidade == NULL || entidade->missao == NULL)
+    if (entidade == NULL)
         return;
     
-    freeConjunto(entidade->missao->habilidades);
-    free(entidade->missao);    
+    if (entidade->missao != NULL){
+        if (entidade->missao->habilidades != NULL){
+            freeConjunto(entidade->missao->habilidades);
+        }
+        free(entidade->missao);
+    }
     free(entidade);
 };
 
