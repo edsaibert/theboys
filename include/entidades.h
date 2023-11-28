@@ -28,12 +28,6 @@ typedef struct missao {
 	conjunto_t* habilidades; 
 } missao_t;
 
-typedef struct Entidades {
-	int heroiId;
-	int baseId;
-	missao_t* missao;
-} entidade_t;
-
 typedef struct v_bases {
 	int id;
 	base_t* base;
@@ -43,6 +37,12 @@ typedef struct v_herois {
 	int id;
 	heroi_t* heroi;
 } v_herois_t;
+
+typedef struct Entidades {
+	int heroiId;
+	int baseId;
+	missao_t* missao;
+} entidade_t;
 
 bool inicializaHeroi(int id, heroi_t** heroi);
 
