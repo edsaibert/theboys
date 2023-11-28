@@ -104,7 +104,13 @@ int main() {
 
 	while (lef != NULL){
 		temp = lef->prox;
-		freeEntidade(lef->entidade);
+
+		if (lef->idFuncao == 1){ 
+			freeEntidade(lef->entidade);
+		} else if (!(lef->idFuncao == 7)){
+			if (lef->entidade != NULL)
+			free(lef->entidade);
+		}
 		free(lef);
 		lef = temp;
 	}

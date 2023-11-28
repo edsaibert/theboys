@@ -155,6 +155,7 @@ void freeEntidade(entidade_t* entidade) {
         free(entidade->missao);
     }
     free(entidade);
+    entidade = NULL;
 };
 
 #endif
