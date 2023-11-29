@@ -6,6 +6,7 @@
 #include "./include/lista.h"
 #include "./include/vetor.h"
 #include "./include/eventos.h"
+#include "./teste.h"
 
 /*
 ##############################################
@@ -105,13 +106,13 @@ int main() {
 	while (lef != NULL){
 		temp = lef->prox;
 
-		if (lef->idFuncao == 1){ 
-			freeEntidade(lef->entidade);
-		} else if (!(lef->idFuncao == 7)){
-			if (lef->entidade != NULL)
-			free(lef->entidade);
+		// Problema no free aqui (função SAI)	
+		if (!(lef->idFuncao == 4 && lef->prox->idFuncao == 7)){
+			if (!(lef->idFuncao == 7))
+				freeEntidade(lef->entidade);
 		}
 		free(lef);
+
 		lef = temp;
 	}
 	freeVherois(v_herois);
