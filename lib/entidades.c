@@ -122,6 +122,64 @@ bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* miss
     return true;
 }
 
+// Realiza o cálculo de todas as distâncias até a base (idBase)
+void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
+
+    for (int i = 0; i < N_BASES; i++) {
+        if (v_bases[i].base == NULL)
+            continue;
+
+        base_t* destino;
+        destino = v_bases[i].base;
+
+        // Calcula a distância cartesiana
+        v[i] = sqrt(pow((coord[0] - destino->local[0]), 2) 
+               + pow((coord[1] - destino->local[1]), 2));
+    }
+}
+
+// Encontra a base mais próxima
+int encontraBMP(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
+
+    int menorDist = 0;
+    int idBase = -1;
+    
+    for (int i = 0; i < N_BASES, i++){
+        if (v_bases[i].base == NULL)
+            continue;
+
+        if (v[i] < menorDist){
+            menorDist = v[i];
+            idBase = i;
+        }
+    }
+
+    base_t* base;
+    conjunto_t* habilidades;
+
+    base = v_bases[idBase].base;
+
+    for (int i = 0; i < 
+
+)
+
+
+    if (igual(habilidades, (missao)->habilidades))
+        return idBase;
+
+}
+
+void incrementaEx(v_herois_t* v_herois, int idBase){
+    for (int i = 0; i < N_HEROIS; i++) {
+        if (v_herois[i].heroi == NULL)
+            continue;
+
+        if (v_herois[i].heroi->idBase == idBase)
+            v_herois[i].heroi->experiencia++;
+    }
+}
+
+
 // Libera o vetor de bases
 void freeVbases(v_bases_t* v_bases) {
     for (int i = 0; i < N_BASES; i++) {

@@ -49,7 +49,17 @@ bool chega(lista_t** inicio){
 };       
 
 bool missao(lista_t** inicio){
-    // printf("%6d: MISSAO\n", (*inicio)->tempo);
+    int vDistancias[N_BASES];
+    int BMP;
+
+    criaVetor(vDistancias, (*inicio)->v_bases, (*inicio)->missao->coord);
+    BMP = encontraBMP(vDistancias, (*inicio)->v_bases, (*inicio)->missao->coord);
+
+    if (BMP != NULL)
+        incrementaEx((*inicio)->v_herois, BMP);
+    else
+        // CRIA EVENTO MISSAO PARA O DIA SEGUINTE
+
     return false;
 };      
 

@@ -3,6 +3,5 @@
 
 #include "atributos.h"
 
-void imprimeVetor(int *v, int tam);
 
 #endif
