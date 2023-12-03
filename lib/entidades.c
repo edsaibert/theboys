@@ -139,37 +139,34 @@ void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
 }
 
 // Encontra a base mais próxima
-int encontraBMP(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
+int encontraBMP(int v[N_BASES], v_herois_t* v_herois, missao_t* missao){
 
     int menorDist = 0;
     int idBase = -1;
     
-    for (int i = 0; i < N_BASES, i++){
-        if (v_bases[i].base == NULL)
-            continue;
-
+    for (int i = 0; i < N_BASES; i++){
         if (v[i] < menorDist){
             menorDist = v[i];
             idBase = i;
         }
     }
 
-    base_t* base;
+    // Confere se a base é uma solução viável 
     conjunto_t* habilidades;
 
-    base = v_bases[idBase].base;
+    habilidades = inicializaConjunto();
 
-    for (int i = 0; i < 
+    for (int i = 0; i < N_HEROIS; i++){
+        uniao(v_herois[i].heroi->habilidades, habilidades, &habilidades);
+    } 
 
-)
-
-
-    if (igual(habilidades, (missao)->habilidades))
+    // Se a base não tiver todas as habilidades requeridas, retorna -1
+    if (contem(habilidades, missao->habilidades))
         return idBase;
-
+    return -1;
 }
 
-void incrementaEx(v_herois_t* v_herois, int idBase){
+void incrementaExp(v_herois_t* v_herois, int idBase){
     for (int i = 0; i < N_HEROIS; i++) {
         if (v_herois[i].heroi == NULL)
             continue;

@@ -1,20 +1,22 @@
-CFLAGS = -Wall# flags de compilacao
+CFLAGS = -Wall
 CC = gcc -g
 
-INCLUDE = ./include# pasta com .h
-LIB = ./lib# pasta com .c (bibliotecas)
-OBJ = ./obj# pasta com .o (objetos), dessa forma, a manutenção é mais fácil
+INCLUDE = ./include
+LIB = ./lib
+OBJ = ./obj
 
-all: main.o libed 
-	$(CC) -o main -lm $(OBJ)/*.o
+all: main
+
+main: main.o libed
+	$(CC) -o main $(OBJ)/*.o -lm
 
 libed: fila.o conjunto.o lista.o vetor.o entidades.o eventos.o
 
 main.o: main.c
-	$(CC) -c $(CFLAGS) $< -o $(OBJ)/$@
+	$(CC) -c $(CFLAGS) $< -I $(INCLUDE) -o $(OBJ)/$@
 
 %.o: $(LIB)/%.c $(INCLUDE)/%.h
-	$(CC) -c $(CFLAGS) $< -I $(INCLUDE) -o $(OBJ)/$@ 
+	$(CC) -c $(CFLAGS) $< -I $(INCLUDE) -o $(OBJ)/$@
 
 clean:
-	rm -f $(OBJ)/*.o $(OBJ)/*.o
+	rm -f $(OBJ)/*.o main

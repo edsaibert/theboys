@@ -52,15 +52,16 @@ bool missao(lista_t** inicio){
     int vDistancias[N_BASES];
     int BMP;
 
-    criaVetor(vDistancias, (*inicio)->v_bases, (*inicio)->missao->coord);
-    BMP = encontraBMP(vDistancias, (*inicio)->v_bases, (*inicio)->missao->coord);
+    criaVetor(vDistancias, (*inicio)->v_bases, (*inicio)->entidade->missao->local);
+    BMP = encontraBMP(vDistancias, (*inicio)->v_herois, (*inicio)->entidade->missao);
 
-    if (BMP != NULL)
-        incrementaEx((*inicio)->v_herois, BMP);
-    else
-        // CRIA EVENTO MISSAO PARA O DIA SEGUINTE
-
-    return false;
+    if (BMP != -1){
+        incrementaExp((*inicio)->v_herois, BMP);
+        printf("exp"); 
+        return true;
+    }
+    // CRIA EVENTO MISSAO PARA O DIA SEGUINTE
+    return true;
 };      
 
 // Evento ESPERA(H, B)

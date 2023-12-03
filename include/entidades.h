@@ -52,9 +52,9 @@ bool inicializaMissao(int id, missao_t** missao);
 
 bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* missaoId);
 
-void criaVetor(int v[N_BASES],v_bases_t* v_bases, int coord[2]);
+void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]);
 
-int encontraBMP(int v[N_BASES], v_bases_t* v_bases, int coord[2]);
+int encontraBMP(int v[N_BASES], v_herois_t* v_herois, missao_t* missao);
 
 void incrementaExp(v_herois_t* v_herois, int idBase);
 

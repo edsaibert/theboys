@@ -16,7 +16,7 @@ Por Eduarda Saibert =D
 ##############################################
 */
 
-int main() {
+int main(void) {
 	srand(time(NULL));	
     lista_t* lef;
 
