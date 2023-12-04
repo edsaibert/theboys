@@ -10,7 +10,7 @@ all: main
 main: main.o libed
 	$(CC) -o main $(OBJ)/*.o -lm
 
-libed: fila.o conjunto.o lista.o vetor.o entidades.o eventos.o
+libed: fila.o conjunto.o lista.o entidades.o eventos.o
 
 main.o: main.c
 	$(CC) -c $(CFLAGS) $< -I $(INCLUDE) -o $(OBJ)/$@

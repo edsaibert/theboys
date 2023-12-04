@@ -48,7 +48,7 @@ bool chega(lista_t** inicio){
     return true;
 };       
 
-bool missao(lista_t** inicio){
+bool missao(lista_t** inicio, bool* exp, int vTentativas[N_MISSOES]){
     int vDistancias[N_BASES];
     int BMP;
 
@@ -63,11 +63,20 @@ bool missao(lista_t** inicio){
 
     if (BMP != -1){
         incrementaExp((*inicio)->tempo, (*inicio)->v_herois, (*inicio)->entidade->missao, BMP);
+        *exp = true;
         return true;
     }
     // CRIA EVENTO MISSAO PARA O DIA SEGUINTE
     printf("%6d: MISSAO %d IMPOSSIVEL\n", (*inicio)->tempo, (*inicio)->entidade->missao->id);
-    return false;
+
+    if (!insereOrdenado(inicio, (*inicio)->tempo + 1440, 1, (*inicio)->v_bases, (*inicio)->v_herois, (*inicio)->entidade))
+        return false;
+
+    // Incrementa tentativas
+    vTentativas[(*inicio)->entidade->missao->id]++;
+
+    *exp = false;
+    return true;
 };      
 
 // Evento ESPERA(H, B)
@@ -203,6 +212,7 @@ bool entra(lista_t** inicio){
 bool sai(lista_t** inicio){
     base_t* base;
     entidade_t* entidade = NULL;
+    entidade_t* temp = NULL;
 
     // Retira heroi do conjunto de presentes da base
     base = (*inicio)->v_bases[(*inicio)->entidade->baseId].base;
@@ -218,15 +228,16 @@ bool sai(lista_t** inicio){
     // Escolhe uma base destino aleatória
     int idNovaBase = rand() % (N_BASES);
 
-    criaEntidade(&entidade, (*inicio)->entidade->heroiId, idNovaBase, NULL);
 
+    criaEntidade(&entidade, (*inicio)->entidade->heroiId, idNovaBase, NULL);
+    criaEntidade(&temp, (*inicio)->entidade->heroiId, (*inicio)->entidade->baseId, NULL);
     // Cria evento VIAJA(H, B)
     if (!insereOrdenado(inicio, (*inicio)->tempo, 7, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
         return false; 
 
     // Cria evento AVISA(B)
     // entidade->heroiId = -1;
-    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
+    if (!insereOrdenado(inicio, (*inicio)->tempo, 4, (*inicio)->v_bases, (*inicio)->v_herois, temp))
         return false;
 
 
@@ -237,6 +248,7 @@ bool viaja(lista_t** inicio){
     int dist, tempoViagem;
     heroi_t* heroi;
     base_t* origem, *destino;
+    entidade_t* entidade = NULL;
 
     // Busca heroi e base
     heroi = (*inicio)->v_herois[(*inicio)->entidade->heroiId].heroi;
@@ -254,15 +266,16 @@ bool viaja(lista_t** inicio){
 
     // --------
 
+    criaEntidade(&entidade, heroi->id, destino->id, NULL);
     // Cria evento CHEGA(H, B)
-    if (!insereOrdenado(inicio, (*inicio)->tempo + tempoViagem, 0, (*inicio)->v_bases, (*inicio)->v_herois, (*inicio)->entidade))
+    if (!insereOrdenado(inicio, (*inicio)->tempo + tempoViagem, 0, (*inicio)->v_bases, (*inicio)->v_herois, entidade))
         return false; 
 
     return true;
 };
 
 // Realiza as Estatísticas da simulação
-void fim(lista_t* inicio, int numMissao){
+void fim(lista_t* inicio, int numMissao, int vTentativas[N_MISSOES]){
     printf("%6d: FIM\n", T_FIM_DO_MUNDO);
     
     for (int i = 0; i < N_HEROIS; i++){
@@ -275,8 +288,15 @@ void fim(lista_t* inicio, int numMissao){
     } 
 
     // MENSAGEM 
-    float porcentagem = (float) (numMissao * 100) / (N_MISSOES * 100) * 100;
-    printf("%d/%d MISSOES CUMPRIDAS (%.2f%%)", 
-           numMissao, N_MISSOES, porcentagem); 
+    float pCumpridas = (float) (numMissao * 100) / (N_MISSOES * 100) * 100;
+    float mImpossiveis = 0;
+
+    for (int i = 0; i < N_MISSOES; i++){
+        mImpossiveis += vTentativas[i];
+    }
+    mImpossiveis = (float) mImpossiveis * 100 / N_MISSOES * 100;
+
+    printf("%d/%d MISSOES CUMPRIDAS (%.2f%%)\n", numMissao, N_MISSOES, pCumpridas); 
+    printf("TENTATIVAS/MISSAO: MEDIA %.2f", mImpossiveis);
 
 }

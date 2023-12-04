@@ -4,9 +4,7 @@
 #include "./include/conjunto.h"
 #include "./include/fila.h"
 #include "./include/lista.h"
-#include "./include/vetor.h"
 #include "./include/eventos.h"
-#include "./teste.h"
 
 /*
 ##############################################
@@ -79,11 +77,17 @@ int main() {
 		insereOrdenado(&lef, tempo, 1, v_bases, v_herois, entidade);
 	}
 
+	// Insere o evento FIM na LEF (Lista de Eventos Futuros)
+	insereOrdenado(&lef, T_FIM_DO_MUNDO, 8, v_bases, v_herois, NULL);
+
 	// ******************************************************
 	// RELÓGIO DA SIMULAÇÃO
 
 	int tempo = 0;
-	int numMissao = 0;
+	int numMissao = 0; 				// Número de missões concluídas
+	int vTentativas[N_MISSOES];		// Vetor que contém o número de tentativas de cada missão
+	inicializaVetor(vTentativas);
+
 	lista_t* aux = lef;
 	lista_t* temp;
 
@@ -91,7 +95,8 @@ int main() {
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
 		int backup = aux->tempo;
 		while (aux != NULL && aux->tempo == tempo) {
-			executa(&aux, &numMissao); 			// Executa o evento
+			executa(&aux, &numMissao, vTentativas); 		// Executa o evento
+
 			aux = aux->prox;
 		}
 		// Incrementa o tempo
@@ -101,7 +106,6 @@ int main() {
 			tempo += aux->tempo - backup;
 	}
 
-	fim(lef, numMissao);
 
 	// ******************************************************
 	// EVENTOS FINAIS (free)

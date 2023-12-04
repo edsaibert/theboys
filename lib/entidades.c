@@ -105,6 +105,13 @@ bool inicializaMissao(int id, missao_t** missao) {
     return 1;
 }
 
+// Inicializa o vetor de missões tentadas
+void inicializaVetor(int v[N_MISSOES]) {
+    for (int i = 0; i < N_MISSOES; i++)
+        v[i] = 0;
+}
+
+
 // Cria struct entidade para ser armazenada na lista de eventos futuros
 bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* missao) {
     entidade_t* aux;
@@ -180,6 +187,8 @@ int encontraBMP(int tempo, int v[N_BASES], v_herois_t* v_herois, missao_t* missa
     return -1;
 }
 
+// Incrementa as experiências dos heróis que participaram de uma missão concluída
+// Além disso, imprime a mensagem dos heróis que participaram da missão
 void incrementaExp(int tempo, v_herois_t* v_herois, missao_t* missao, int idBase){
     printf("%6d: MISSAO %d CUMPRIDA BASE %d HEROIS: [ ", tempo, missao->id, idBase);
 
@@ -229,8 +238,8 @@ void freeEntidade(entidade_t* entidade) {
         free(entidade->missao);
     }
 
-        free(entidade);
-        entidade = NULL;
+    free(entidade);
+    entidade = NULL;
 };
 
 #endif
