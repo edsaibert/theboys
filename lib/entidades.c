@@ -140,10 +140,10 @@ void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
 
 // Encontra a base mais próxima
 int encontraBMP(int tempo, int v[N_BASES], v_herois_t* v_herois, missao_t* missao){
-
     int menorDist = v[0];
     int idBase = 0;
     
+    // Encontra a menor distância
     for (int i = 0; i < N_BASES; i++){
         if (v[i] < menorDist){
             menorDist = v[i];
@@ -164,16 +164,19 @@ int encontraBMP(int tempo, int v[N_BASES], v_herois_t* v_herois, missao_t* missa
     conjunto_t* habilidades;
     habilidades = inicializaConjunto();
 
+    // Cria conjunto com todas as habilidades dos herois
     insereConjunto(&habilidades, v_herois[0].heroi->habilidades->conteudo);
-
     for (int i = 1; i < N_HEROIS; i++){
         habilidades = uniao(habilidades, v_herois[i].heroi->habilidades);
     } 
 
     // Se a base não tiver todas as habilidades requeridas, retorna -1
     if (contem(habilidades, missao->habilidades)) {
+        freeConjunto(habilidades);
         return idBase;
     }
+
+    freeConjunto(habilidades);
     return -1;
 }
 
@@ -225,8 +228,9 @@ void freeEntidade(entidade_t* entidade) {
         freeConjunto(entidade->missao->habilidades);
         free(entidade->missao);
     }
-    free(entidade);
-    entidade = NULL;
+
+        free(entidade);
+        entidade = NULL;
 };
 
 #endif

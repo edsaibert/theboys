@@ -109,11 +109,8 @@ int main() {
 	while (lef != NULL){
 		temp = lef->prox;
 
-		// Problema no free aqui (função SAI)	
-		if (!(lef->idFuncao == 4 && lef->prox->idFuncao == 7)){
-			if (!(lef->idFuncao == 7))
-				freeEntidade(lef->entidade);
-		}
+		// Problema no free aqui (função SAI)
+		freeEntidade(lef->entidade);
 		free(lef);
 
 		lef = temp;
