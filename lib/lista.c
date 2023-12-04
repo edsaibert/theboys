@@ -107,7 +107,7 @@ bool buscar(lista_t* inicio, lista_t** nodo, int tempo){
 
 /*	Executa o evento de acordo com o idFuncao
  	Funcoes definidas em eventos.h	*/ 
-bool executa(lista_t** inicio){
+bool executa(lista_t** inicio, int* numMissao){
 
 	switch ((*inicio)->idFuncao) {
 		case 0:
@@ -117,8 +117,8 @@ bool executa(lista_t** inicio){
 			break;
 		case 1:
 			// MISSAO(H, B)
-			if (!missao(inicio))
-				return false;
+			if (missao(inicio))
+				(*numMissao)++;
 			break;
 		case 2:
 			// ESPERA(H, B)

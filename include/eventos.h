@@ -21,4 +21,6 @@ bool sai(lista_t** inicio);         // idFuncao : 6
 
 bool viaja(lista_t** inicio);       // idFuncao : 7
 
+void fim(lista_t* inicio, int numMissao);
+
 #endif

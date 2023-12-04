@@ -52,16 +52,22 @@ bool missao(lista_t** inicio){
     int vDistancias[N_BASES];
     int BMP;
 
+    // MENSAGEM
+    printf("%6d: MISSAO %d HAB REQ: [ ", (*inicio)->tempo, (*inicio)->entidade->missao->id);
+    imprimeConjunto((*inicio)->entidade->missao->habilidades, false);
+    printf("]\n");
+    // --------
+
     criaVetor(vDistancias, (*inicio)->v_bases, (*inicio)->entidade->missao->local);
-    BMP = encontraBMP(vDistancias, (*inicio)->v_herois, (*inicio)->entidade->missao);
+    BMP = encontraBMP((*inicio)->tempo, vDistancias, (*inicio)->v_herois, (*inicio)->entidade->missao);
 
     if (BMP != -1){
-        incrementaExp((*inicio)->v_herois, BMP);
-        printf("exp"); 
+        incrementaExp((*inicio)->tempo, (*inicio)->v_herois, (*inicio)->entidade->missao, BMP);
         return true;
     }
     // CRIA EVENTO MISSAO PARA O DIA SEGUINTE
-    return true;
+    printf("%6d: MISSAO %d IMPOSSIVEL\n", (*inicio)->tempo, (*inicio)->entidade->missao->id);
+    return false;
 };      
 
 // Evento ESPERA(H, B)
@@ -254,3 +260,23 @@ bool viaja(lista_t** inicio){
 
     return true;
 };
+
+// Realiza as Estatísticas da simulação
+void fim(lista_t* inicio, int numMissao){
+    printf("%6d: FIM\n", T_FIM_DO_MUNDO);
+    
+    for (int i = 0; i < N_HEROIS; i++){
+        printf("HEROI %2d PAC %3d VEL %4d EXP %4d HABS [ ", 
+        inicio->v_herois[i].heroi->id, inicio->v_herois[i].heroi->paciencia, 
+        inicio->v_herois[i].heroi->velocidade, inicio->v_herois[i].heroi->experiencia);
+
+        imprimeConjunto(inicio->v_herois[i].heroi->habilidades, false);
+        printf("]\n");
+    } 
+
+    // MENSAGEM 
+    float porcentagem = (float) (numMissao * 100) / (N_MISSOES * 100) * 100;
+    printf("%d/%d MISSOES CUMPRIDAS (%.2f%%)", 
+           numMissao, N_MISSOES, porcentagem); 
+
+}

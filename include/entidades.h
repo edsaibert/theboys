@@ -54,9 +54,9 @@ bool criaEntidade(entidade_t** entidade, int heroiId, int baseId, missao_t* miss
 
 void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]);
 
-int encontraBMP(int v[N_BASES], v_herois_t* v_herois, missao_t* missao);
+int encontraBMP(int tempo, int v[N_BASES], v_herois_t* v_herois, missao_t* missao);
 
-void incrementaExp(v_herois_t* v_herois, int idBase);
+void incrementaExp(int tempo, v_herois_t* v_herois, missao_t* missao, int idBase);
 
 void freeVbases(v_bases_t* v_bases);
 

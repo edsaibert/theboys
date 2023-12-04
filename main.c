@@ -16,7 +16,7 @@ Por Eduarda Saibert =D
 ##############################################
 */
 
-int main(void) {
+int main() {
 	srand(time(NULL));	
     lista_t* lef;
 
@@ -83,14 +83,15 @@ int main(void) {
 	// RELÓGIO DA SIMULAÇÃO
 
 	int tempo = 0;
+	int numMissao = 0;
 	lista_t* aux = lef;
 	lista_t* temp;
 
-	while (tempo <= 1000 && aux != NULL){
+	while (tempo <= T_FIM_DO_MUNDO && aux != NULL){
 		// Enquanto o tempo do evento for igual ao tempo atual ( eventos simultâneos )
 		int backup = aux->tempo;
 		while (aux != NULL && aux->tempo == tempo) {
-			executa(&aux); 			// Executa o evento
+			executa(&aux, &numMissao); 			// Executa o evento
 			aux = aux->prox;
 		}
 		// Incrementa o tempo
@@ -99,6 +100,8 @@ int main(void) {
 		else
 			tempo += aux->tempo - backup;
 	}
+
+	fim(lef, numMissao);
 
 	// ******************************************************
 	// EVENTOS FINAIS (free)

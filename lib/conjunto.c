@@ -22,7 +22,7 @@ void imprimeConjunto(conjunto_t* l1, bool cont){
         if (cont)
             printf(": %d vezes / ", aux->cont);
     }
-    printf("\n");
+    // printf("\n");
 }
 
 // Preferi inserir no início pois não alteraria o exercício
@@ -54,23 +54,21 @@ int tamanhoConjunto(conjunto_t* l1){
 }
 
 // Faz a concatenação das listas l1 e l2
-bool uniao(conjunto_t* l1, conjunto_t* l2, conjunto_t** l3){
-    // Vincula o endereço de l3 à l1
-    *l3 = l1;
-
+conjunto_t* uniao(conjunto_t* l1, conjunto_t* l2){
     if (l1 == NULL || l2 == NULL) {
-        return false;
+        return NULL;
     }
-    
-    // aux recebe o endereço de l1
+
+    // Encontra o ultimo nodo de l1 
     conjunto_t* aux = l1;
     while (aux->prox != NULL) {
         aux = aux->prox;
     }
-    // aux concatena as duas listas
-    aux->prox = l2;
+
+    // Concatena as duas listas 
+    aux->prox = NULL;
     
-    return true;
+    return l1;
 }
 
 // Verifica se determinado conteúdo pertence a l

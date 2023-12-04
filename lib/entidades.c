@@ -139,10 +139,10 @@ void criaVetor(int v[N_BASES], v_bases_t* v_bases, int coord[2]){
 }
 
 // Encontra a base mais próxima
-int encontraBMP(int v[N_BASES], v_herois_t* v_herois, missao_t* missao){
+int encontraBMP(int tempo, int v[N_BASES], v_herois_t* v_herois, missao_t* missao){
 
-    int menorDist = 0;
-    int idBase = -1;
+    int menorDist = v[0];
+    int idBase = 0;
     
     for (int i = 0; i < N_BASES; i++){
         if (v[i] < menorDist){
@@ -151,29 +151,45 @@ int encontraBMP(int v[N_BASES], v_herois_t* v_herois, missao_t* missao){
         }
     }
 
+    // MENSAGEM
+    printf("%6d: MISSAO %d HAB BASE %d: [ ", tempo, missao->id, idBase);
+    for (int i = 0; i < N_HABILIDADES; i++){
+        if (existe(missao->habilidades, i))
+            printf("%d ", i);
+    }
+    printf("]\n");
+    // --------
+
     // Confere se a base é uma solução viável 
     conjunto_t* habilidades;
-
     habilidades = inicializaConjunto();
 
-    for (int i = 0; i < N_HEROIS; i++){
-        uniao(v_herois[i].heroi->habilidades, habilidades, &habilidades);
+    insereConjunto(&habilidades, v_herois[0].heroi->habilidades->conteudo);
+
+    for (int i = 1; i < N_HEROIS; i++){
+        habilidades = uniao(habilidades, v_herois[i].heroi->habilidades);
     } 
 
     // Se a base não tiver todas as habilidades requeridas, retorna -1
-    if (contem(habilidades, missao->habilidades))
+    if (contem(habilidades, missao->habilidades)) {
         return idBase;
+    }
     return -1;
 }
 
-void incrementaExp(v_herois_t* v_herois, int idBase){
+void incrementaExp(int tempo, v_herois_t* v_herois, missao_t* missao, int idBase){
+    printf("%6d: MISSAO %d CUMPRIDA BASE %d HEROIS: [ ", tempo, missao->id, idBase);
+
     for (int i = 0; i < N_HEROIS; i++) {
         if (v_herois[i].heroi == NULL)
             continue;
 
-        if (v_herois[i].heroi->idBase == idBase)
+        if (v_herois[i].heroi->idBase == idBase){
             v_herois[i].heroi->experiencia++;
+            printf("%d ", v_herois[i].heroi->id);
+        }
     }
+    printf("]\n");
 }
 
 
